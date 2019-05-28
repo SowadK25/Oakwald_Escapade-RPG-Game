@@ -4,6 +4,7 @@ Floors = []
 
 class Floor(pygame.sprite.Sprite):
 
+
     def __init__(self, position):
         super().__init__()
 

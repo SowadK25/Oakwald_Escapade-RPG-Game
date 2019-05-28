@@ -1,7 +1,7 @@
 import pygame
 #import random
 from Tree_class import Tree
-
+from Floor_class import Floor
 pygame.init()
 
 height = 750
@@ -13,6 +13,8 @@ WHITE = [255, 255, 255]
 BLACK = [0, 0, 0]
 Tree_x = 0
 Tree_y = 0
+Floor_x = 0
+Floor_y = 0
 close = True
 
 clear = []
@@ -111,7 +113,7 @@ for row in final_level:
         if col == '1':
             Tree((Tree_x, Tree_y))
         if col == '0':
-            floor((Floor_x, Floor_y))
+            Floor((Floor_x, Floor_y))
     Tree_y += 50
     Tree_x = 0
 
