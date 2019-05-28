@@ -105,6 +105,7 @@ while close:
         final_level.append(map4)
 
 
+
 print(lvl_type)
 
 
