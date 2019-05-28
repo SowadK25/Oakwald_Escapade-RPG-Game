@@ -1,9 +1,9 @@
 import pygame
-#import random
+import random
 from Tree_class import Tree
 from Floor_class import Floor
 pygame.init()
-
+foo = 1
 height = 750
 width = 750
 screen = pygame.display.set_mode((height, width))
@@ -12,7 +12,7 @@ pygame.display.set_caption('Oakwald Escapade')
 WHITE = [255, 255, 255]
 BLACK = [0, 0, 0]
 
-# directional stuff
+# for the maps
 Tree_x = 0
 Tree_y = 0
 Floor_x = 0
@@ -20,6 +20,19 @@ Floor_y = 0
 
 # For main loop
 close = True
+
+# random number between 5 for spawning
+
+list_of_numbers = [1,2,3,4,5]
+spawn_location = []
+spawn_location.append(random.choice(list_of_numbers))
+
+
+# for spawn location number between 5
+while close:
+    for a in range(5):
+        if foo == 1:
+            one = random.choice(list_of_numbers)
 
 
 #this is map 0 is nothing 1 is wall
