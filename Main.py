@@ -11,13 +11,17 @@ pygame.display.set_caption('Oakwald Escapade')
 # colours
 WHITE = [255, 255, 255]
 BLACK = [0, 0, 0]
+
+# directional stuff
 Tree_x = 0
 Tree_y = 0
 Floor_x = 0
 Floor_y = 0
+
+# For main loop
 close = True
 
-clear = []
+
 #this is map 0 is nothing 1 is wall
 map1 = [
     '111110000011111',
@@ -87,9 +91,9 @@ map4 = [
     '100000000000001',
     '111110000011111',
 ]
-lvl_type = 1
-
-final_level = []
+lvl_type = 2
+clear = [] # used for clearing the list
+final_level = [] # final list for map
 while close:
     if lvl_type == 1:
         final_level.append(clear)
@@ -103,10 +107,11 @@ while close:
     if lvl_type == 4:
         final_level.append(clear)
         final_level.append(map4)
+    else:
+        break
 
 
-
-print(lvl_type)
+print(final_level)
 
 
 for row in final_level:
