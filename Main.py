@@ -103,13 +103,15 @@ while close:
         final_level.append(map4)
 
 
-
+print(lvl_type)
 
 
 for row in final_level:
     for col in row:
         if col == '1':
             Tree((Tree_x, Tree_y))
+        if col == '0':
+            floor((Floor_x, Floor_y))
     Tree_y += 50
     Tree_x = 0
 
