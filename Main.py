@@ -15,7 +15,7 @@ Tree_x = 0
 Tree_y = 0
 close = True
 
-
+clear = []
 #this is map 0 is nothing 1 is wall
 map1 = [
     '111110000011111',
@@ -90,8 +90,17 @@ lvl_type = 1
 final_level = []
 while close:
     if lvl_type == 1:
+        final_level.append(clear)
         final_level.append(map1)
-
+    if lvl_type == 2:
+        final_level.append(clear)
+        final_level.append(map2)
+    if lvl_type == 3:
+        final_level.append(clear)
+        final_level.append(map3)
+    if lvl_type == 4:
+        final_level.append(clear)
+        final_level.append(map4)
 
 
 
