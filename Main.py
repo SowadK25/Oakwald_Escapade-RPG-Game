@@ -13,7 +13,7 @@ WHITE = [255, 255, 255]
 BLACK = [0, 0, 0]
 Tree_x = 0
 Tree_y = 0
-
+close = True
 
 
 #this is map 0 is nothing 1 is wall
@@ -85,11 +85,19 @@ map4 = [
     '100000000000001',
     '111110000011111',
 ]
+lvl_type = 1
+
+final_level = []
+while close:
+    if lvl_type == 1:
+        final_level.append(map1)
 
 
 
 
-for row in map1:
+
+
+for row in final_level:
     for col in row:
         if col == '1':
             Tree((Tree_x, Tree_y))
@@ -99,9 +107,8 @@ for row in map1:
 
 
 
-level = [map1, map2, map3, map4]
 
-close = True
+
 while close:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
