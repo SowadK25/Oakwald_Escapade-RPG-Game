@@ -1,6 +1,6 @@
 import pygame
 #import random
-import Tree_class
+from Tree_class import Tree
 
 pygame.init()
 
@@ -12,7 +12,9 @@ pygame.display.set_caption('Oakwald Escapade')
 WHITE = [255, 255, 255]
 BLACK = [0, 0, 0]
 
+#state the classes
 
+Tree
 
 
 #this is map 0 is nothing 1 is wall
@@ -84,14 +86,17 @@ map4 = [
     '100000000000001',
     '111110000011111',
 ]
-Trees = []
 
 
+Tree_x = 0
+Tree_y = 0
 
-#for row in #will add:
-   # for col in row:
-      # if col is == '1':
-         #  Tree((x,y)) # tree needs to be made
+for row in map1:
+    for col in row:
+        if col == '1':
+            Tree((Tree_x,Tree_y))
+    Tree_y += 50
+    Tree_x = 0
 
 
 
