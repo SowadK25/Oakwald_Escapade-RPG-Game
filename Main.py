@@ -85,18 +85,11 @@ map4 = [
 
 close = True
 
-for row in #will add:
-    for col in row:
-       if col is == '1':
-           Tree((x,y)) # tree needs to be made
+#for row in #will add:
+   # for col in row:
+      # if col is == '1':
+         #  Tree((x,y)) # tree needs to be made
 
-
-
-def word(text, size, color, x, y):
-    size = pygame.font.SysFont('Arial', size)
-    word_2 = size.render(text, True, color)
-    end = (word_2, (x, y))
-    return end
 
 
 level = [map1, map2, map3, map4]
@@ -114,5 +107,3 @@ while close:
     screen.fill(WHITE)
     pygame.display.flip()
 
-
-screen.blit(word('this', 70, BLACK, 0, 0))
