@@ -8,12 +8,18 @@ height = 750
 width = 750
 screen = pygame.display.set_mode((height, width))
 pygame.display.set_caption('Oakwald Escapade')
+
+small = pygame.font.SysFont("TimesNewRoman", 25)
+big = pygame.font.SysFont("TimesNewRoman", 50)
+
 # colours
-WHITE = [255, 255, 255]
-BLACK = [0, 0, 0]
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
 
-
-
+screen.fill(WHITE)
+pygame.display.flip()
 
 #this is map 0 is nothing 1 is wall
 map1 = [
@@ -97,15 +103,17 @@ Trees = []
 
 level = [map1, map2, map3, map4]
 
-close = True
-while close:
+
+def sentence(font, word, color, x, y):
+    text = font.render(word, True, color)
+    screen.blit(text, (x, y))
+    pygame.display.update()
+
+
+sentence(big, "Hello", RED, 500, 200)
+
+running = True
+while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
-            quit()
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_ESCAPE:
-                pygame.quit()
-                quit()
-    screen.fill(WHITE)
-    pygame.display.flip()
+            running = False
