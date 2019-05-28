@@ -11,10 +11,9 @@ pygame.display.set_caption('Oakwald Escapade')
 # colours
 WHITE = [255, 255, 255]
 BLACK = [0, 0, 0]
+Tree_x = 0
+Tree_y = 0
 
-#state the classes
-
-Tree
 
 
 #this is map 0 is nothing 1 is wall
@@ -88,13 +87,12 @@ map4 = [
 ]
 
 
-Tree_x = 0
-Tree_y = 0
+
 
 for row in map1:
     for col in row:
         if col == '1':
-            Tree((Tree_x,Tree_y))
+            Tree((Tree_x, Tree_y))
     Tree_y += 50
     Tree_x = 0
 
