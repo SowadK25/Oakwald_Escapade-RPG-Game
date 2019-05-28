@@ -1,6 +1,6 @@
 import pygame
-#sowad
-# import random
+#import random
+import Tree_class
 
 pygame.init()
 
@@ -12,7 +12,10 @@ pygame.display.set_caption('Oakwald Escapade')
 WHITE = [255, 255, 255]
 BLACK = [0, 0, 0]
 
-#this is map 0 is nothing 1 is wall 2 is spawn
+
+
+
+#this is map 0 is nothing 1 is wall
 map1 = [
     '111110000011111',
     '100000000000001',
@@ -81,9 +84,9 @@ map4 = [
     '100000000000001',
     '111110000011111',
 ]
+Trees = []
 
 
-close = True
 
 #for row in #will add:
    # for col in row:
@@ -94,7 +97,7 @@ close = True
 
 level = [map1, map2, map3, map4]
 
-
+close = True
 while close:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -106,4 +109,3 @@ while close:
                 quit()
     screen.fill(WHITE)
     pygame.display.flip()
-
