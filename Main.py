@@ -18,6 +18,22 @@ Tree_y = 0
 Floor_x = 0
 Floor_y = 0
 
+# for button function
+
+
+def Button(text, lenght,width,x,y):
+    pressed = None
+    mouse_position = pygame.mouse.get_pos()
+    mouse_pressed = pygame.mouse.get_pressed()
+
+    if x+width > mouse_position[0] and y+height >mouse_position[1]:
+        pygame.draw.rect(screen, pressed_down, (x,y,width,height))
+        if mouse_pressed[0]
+
+    else:
+
+
+
 # For main loop
 close = True
 
