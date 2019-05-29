@@ -23,6 +23,9 @@ close = True
 
 # random number between 5 for spawning
 
+# I am not sure how to incorporate this with the loading image in the player class. It would be easier to just have 
+# one spawn location, doesn't make much of a difference
+
 list_of_numbers = [1,2,3,4,5]
 spawn_location = []
 spawn_location.append(random.choice(list_of_numbers))
