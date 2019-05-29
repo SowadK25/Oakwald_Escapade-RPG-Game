@@ -8,4 +8,4 @@ class Tree(pygame.sprite.Sprite):
         super().__init__()
 
         Trees.append(self)
-        self.rect = pygame.Rect(position [0], position [1], 50, 50)
+        self.rect = pygame.Rect(position[0], position[1], 50, 50)
