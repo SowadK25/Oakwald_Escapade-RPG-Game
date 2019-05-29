@@ -3,7 +3,7 @@ import random
 from Tree_class import Tree
 from Floor_class import Floor
 pygame.init()
-foo = 1
+#foo = 1
 height = 750
 width = 750
 screen = pygame.display.set_mode((height, width))
@@ -11,6 +11,17 @@ pygame.display.set_caption('Oakwald Escapade')
 # colours
 WHITE = [255, 255, 255]
 BLACK = [0, 0, 0]
+
+# for the button function
+
+
+
+# images for the button
+
+not_pressed = pygame.image.render()
+pressed_down = pygame.image.render()
+
+
 
 # for the maps
 Tree_x = 0
@@ -28,9 +39,10 @@ def Button(text, lenght,width,x,y):
 
     if x+width > mouse_position[0] and y+height >mouse_position[1]:
         pygame.draw.rect(screen, pressed_down, (x,y,width,height))
-        if mouse_pressed[0]
-
+        if mouse_pressed[0] == 1 and pressed != None:
+            pressed()
     else:
+        pygame.draw.rect(screen, not_pressed, (x,y,width,height))
 
 
 
@@ -45,10 +57,10 @@ spawn_location.append(random.choice(list_of_numbers))
 
 
 # for spawn location number between 5
-while close:
-    for a in range(5):
-        if foo == 1:
-            one = random.choice(list_of_numbers)
+#while close:
+   # for a in range(5):
+       # if foo == 1:
+           # one = random.choice(list_of_numbers)
 
 
 #this is map 0 is nothing 1 is wall
