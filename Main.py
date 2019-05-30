@@ -3,7 +3,7 @@ import random
 from Tree_class import Tree
 from Floor_class import Floor
 pygame.init()
-#foo = 1
+# foo = 1
 height = 750
 width = 750
 screen = pygame.display.set_mode((height, width))
@@ -14,13 +14,8 @@ BLACK = [0, 0, 0]
 
 # for the button function
 
-
-
-# images for the button
-
 not_pressed = pygame.image.render()
 pressed_down = pygame.image.render()
-
 
 
 # for the maps
@@ -32,18 +27,17 @@ Floor_y = 0
 # for button function
 
 
-def Button(text, lenght,width,x,y):
+def button(text, height1, width1, x, y):
     pressed = None
     mouse_position = pygame.mouse.get_pos()
     mouse_pressed = pygame.mouse.get_pressed()
 
-    if x+width > mouse_position[0] and y+height >mouse_position[1]:
-        pygame.draw.rect(screen, pressed_down, (x,y,width,height))
+    if x+width1 > mouse_position[0] and y+height1 > mouse_position[1]:
+        pygame.draw.rect(screen, pressed_down, (x, y, width1, height1))
         if mouse_pressed[0] == 1 and pressed != None:
             pressed()
     else:
-        pygame.draw.rect(screen, not_pressed, (x,y,width,height))
-
+        pygame.draw.rect(screen, not_pressed, (x, y, width1, height1))
 
 
 # For main loop
@@ -51,19 +45,19 @@ close = True
 
 # random number between 5 for spawning
 
-list_of_numbers = [1,2,3,4,5]
+list_of_numbers = [1, 2, 3, 4, 5]
 spawn_location = []
 spawn_location.append(random.choice(list_of_numbers))
 
 
 # for spawn location number between 5
-#while close:
-   # for a in range(5):
-       # if foo == 1:
-           # one = random.choice(list_of_numbers)
+"""while close:
+    for a in range(5):
+        if foo == 1:
+            one = random.choice(list_of_number)"""
 
 
-#this is map 0 is nothing 1 is wall
+# this is map 0 is nothing 1 is wall
 map1 = [
     '111110000011111',
     '100000000000001',
@@ -133,8 +127,8 @@ map4 = [
     '111110000011111',
 ]
 lvl_type = 2
-clear = [] # used for clearing the list
-final_level = [] # final list for map
+clear = []  # used for clearing the list
+final_level = []  # final list for map
 while close:
     if lvl_type == 1:
         final_level.append(clear)
@@ -152,9 +146,6 @@ while close:
         break
 
 
-print(final_level)
-
-
 for row in final_level:
     for col in row:
         if col == '1':
@@ -163,10 +154,6 @@ for row in final_level:
             Floor((Floor_x, Floor_y))
     Tree_y += 50
     Tree_x = 0
-
-
-
-
 
 
 while close:
