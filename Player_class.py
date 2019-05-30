@@ -15,26 +15,26 @@ class Player(pygame.sprite.Sprite):
     def move_right(self):
         self.rect.x += 5
 
-        if self.rect.x >= 750:
-            self.rect.x = 750
+        if self.rect.x >= 650:
+            self.rect.x = 650
 
     def move_left(self):
         self.rect.x -= 5
 
-        if self.rect.x <= 0:
-            self.rect.x = 0
+        if self.rect.x <= -50:
+            self.rect.x = -50
 
     def move_up(self):
         self.rect.y -= 5
 
-        if self.rect.y >= 750:
-            self.rect.y = 750
+        if self.rect.y >= -30:
+            self.rect.y = -30
 
     def move_down(self):
         self.rect.y += 5
 
-        if self.rect.y <= 0:
-            self.rect.y = 0
+        if self.rect.y <= 630:
+            self.rect.y = 630
 
     def update(self):
         keys = pygame.key.get_pressed()
