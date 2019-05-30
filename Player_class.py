@@ -25,13 +25,13 @@ class Player(pygame.sprite.Sprite):
             self.rect.x = 0
 
     def move_up(self):
-        self.rect.y += 5
+        self.rect.y -= 5
 
         if self.rect.y >= 750:
             self.rect.y = 750
 
     def move_down(self):
-        self.rect.y -= 5
+        self.rect.y += 5
 
         if self.rect.y <= 0:
             self.rect.y = 0
