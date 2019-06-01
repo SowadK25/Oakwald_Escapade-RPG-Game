@@ -123,8 +123,8 @@ map4 = [
 floor = 0
 tree = 1
 image_library = {
-    tree : pygame.transform.scale(pygame.image.load('pawn.png'),[50,50]),
-    floor : pygame.transform.scale(pygame.image.load('grass.png'),[50,50])
+    tree : pygame.transform.scale(pygame.image.load('tree.png'),[50,50]),
+    floor : pygame.transform.scale(pygame.image.load('floor.png'),[50,50])
 }
 
 list_with_final_1 = [
