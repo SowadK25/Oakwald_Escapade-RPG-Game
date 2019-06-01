@@ -7,8 +7,8 @@ import pygame  # imports
 pygame.init()
 
 # Dimensions of the screen
-height = 750
-width = 750
+height = 675
+width = 675
 
 
 screen = pygame.display.set_mode((height, width))  # screen display size
@@ -48,86 +48,16 @@ Floor_y = 0
 screen.fill(WHITE)
 
 close = True
-# maps
-
-map1 = [
-    'aaaaabbbbbaaaaa',
-    'abbbbbbbbbbbbba',
-    'abbbbbbbbbbbbba',
-    'abbbbbbbbbbbbba',
-    'abbbbbbbbbbbbba',
-    'abbbbbbbbbbbbba',
-    'abbbbbbbbbbbbba',
-    'abbbbbbbbbbbbba',
-    'abbbbbbbbbbbbba',
-    'abbbbbbbbbbbbba',
-    'abbbbbbbbbbbbba',
-    'abbbbbbbbbbbbba',
-    'abbbbbbbbbbbbba',
-    'abbbbbbbbbbbbba',
-    'aaaaaaaaaaaaaaa',
-]
-map2 = [
-    '111110000011111',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '111110000011111',
-]
-map3 = [
-    '111110000011111',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '000000000000001',
-    '000000000000001',
-    '000000000000001',
-    '000000000000001',
-    '000000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '111110000011111',
-]
-map4 = [
-    '111110000011111',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '000000000000000',
-    '000000000000000',
-    '000000000000000',
-    '000000000000000',
-    '000000000000000',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '111110000011111',
-]
 
 # for the map
 floor = 0
 tree = 1
 image_library = {
-    tree: pygame.transform.scale(pygame.image.load('tree.png'), [50, 50]),
-    floor: pygame.transform.scale(pygame.image.load('floor.png'), [50, 50])
+    tree: pygame.transform.scale(pygame.image.load('tree.png'), [45, 45]),
+    floor: pygame.transform.scale(pygame.image.load('floor.png'), [45, 45])
 }
 
-list_with_final_1 = [
+map1 = [
 
     [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree],
     [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
@@ -145,7 +75,7 @@ list_with_final_1 = [
     [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
     [tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree],
 ]
-list_with_final_2 = [
+map2 = [
 
     [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
     [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
@@ -163,7 +93,7 @@ list_with_final_2 = [
     [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
     [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
 ]
-list_with_final_3 = [
+map3 = [
 
     [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
     [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
@@ -181,7 +111,7 @@ list_with_final_3 = [
     [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
     [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
 ]
-list_with_final_4 = [
+map4 = [
 
     [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
     [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
@@ -199,14 +129,12 @@ list_with_final_4 = [
     [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
     [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
 ]
-size_of_tile = 50
-
-final_final_map = [list_with_final_1]
-
+size_of_tile = 45
 
 lvl_type = 2
 clear = []  # used for clearing the list
 final_level = []  # final list for map
+
 while close:
     if lvl_type == 1:
         final_level.append(clear)
@@ -223,6 +151,7 @@ while close:
     else:
         break
 
+print(map1)
 while close:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -234,6 +163,6 @@ while close:
                 quit()
     for row in range(15):
         for column in range(15):
-            screen.blit(image_library[list_with_final_1[row][column]], (column * size_of_tile, row * size_of_tile))
+            screen.blit(image_library[map1[row][column]], (column * size_of_tile, row * size_of_tile))
     pygame.display.update()
     clock.tick(60)
