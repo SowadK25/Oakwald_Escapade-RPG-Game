@@ -1,4 +1,5 @@
 import pygame
+from pygame.math import Vector2
 
 
 class Player(pygame.sprite.Sprite):
@@ -10,45 +11,18 @@ class Player(pygame.sprite.Sprite):
         
         self.image = pygame.Surface([750, 750])
         self.image = pygame.image.load("pawn.png")
+        self.org_image = self.image
         self.rect = self.image.get_rect()
+        self.pos = (200, 200)  # Start position of player
+        self.position = Vector2(self.pos)  # Position set as a vector quantity
+        self.direction = Vector2(0, -1)  # Vector points upwards
 
-    def move_right(self):
-        self.rect.x += 5
-
-        if self.rect.x >= 650:
-            self.rect.x = 650
-
-    def move_left(self):
-        self.rect.x -= 5
-
-        if self.rect.x <= -50:
-            self.rect.x = -50
-
-    def move_up(self):
-        self.rect.y -= 5
-
-        if self.rect.y >= -30:
-            self.rect.y = -30
-
-    def move_down(self):
-        self.rect.y += 5
-
-        if self.rect.y <= 630:
-            self.rect.y = 630
+        # Setting player speed, angle speed, and angle size
+        self.speed = 0
+        self.angle_speed = 0
+        self.angle = 0
 
     def update(self):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_d]:
-            player.move_right()
-
-        if keys[pygame.K_a]:
-            player.move_left()
-
-        if keys[pygame.K_w]:
-            player.move_up()
-
-        if keys[pygame.K_s]:
-            player.move_down()
 
 
 player = Player()
