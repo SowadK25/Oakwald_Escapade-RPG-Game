@@ -89,7 +89,6 @@ class Shoot(pygame.sprite.Sprite):
             self.rect.y -= self.speed_y
 
 
-
 clock = pygame.time.Clock()
 
 all_sprites_list = pygame.sprite.Group()

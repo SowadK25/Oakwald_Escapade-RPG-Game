@@ -1,7 +1,7 @@
-import pygame # imports
-import random
-from Tree_class import Tree # imports of classes
-from Floor_class import Floor
+import pygame  # imports
+# import random
+# from Tree_class import Tree # imports of classes
+# from Floor_class import Floor
 
 
 pygame.init()
@@ -11,8 +11,8 @@ height = 750
 width = 750
 
 
-screen = pygame.display.set_mode((height, width)) # screen display size
-pygame.display.set_caption('Oakwald Escapade') # screen caption
+screen = pygame.display.set_mode((height, width))  # screen display size
+pygame.display.set_caption('Oakwald Escapade')  # screen caption
 
 # colors
 
@@ -34,6 +34,7 @@ def sentence(font, word, color, x, y):
     screen.blit(text, (x, y))
     pygame.display.update()
 
+
 # sizes for sentences
 small = pygame.font.SysFont("TimesNewRoman", 25)
 big = pygame.font.SysFont("TimesNewRoman", 50)
@@ -50,22 +51,21 @@ close = True
 # maps
 
 map1 = [
-'aaaaabbbbbaaaaa',
-'abbbbbbbbbbbbba',
-'abbbbbbbbbbbbba',
-'abbbbbbbbbbbbba',
-'abbbbbbbbbbbbba',
-'abbbbbbbbbbbbba',
-'abbbbbbbbbbbbba',
-'abbbbbbbbbbbbba',
-'abbbbbbbbbbbbba',
-'abbbbbbbbbbbbba',
-'abbbbbbbbbbbbba',
-'abbbbbbbbbbbbba',
-'abbbbbbbbbbbbba',
-'abbbbbbbbbbbbba',
-'aaaaaaaaaaaaaaa',
-
+    'aaaaabbbbbaaaaa',
+    'abbbbbbbbbbbbba',
+    'abbbbbbbbbbbbba',
+    'abbbbbbbbbbbbba',
+    'abbbbbbbbbbbbba',
+    'abbbbbbbbbbbbba',
+    'abbbbbbbbbbbbba',
+    'abbbbbbbbbbbbba',
+    'abbbbbbbbbbbbba',
+    'abbbbbbbbbbbbba',
+    'abbbbbbbbbbbbba',
+    'abbbbbbbbbbbbba',
+    'abbbbbbbbbbbbba',
+    'abbbbbbbbbbbbba',
+    'aaaaaaaaaaaaaaa',
 ]
 map2 = [
     '111110000011111',
@@ -123,27 +123,28 @@ map4 = [
 floor = 0
 tree = 1
 image_library = {
-    tree : pygame.transform.scale(pygame.image.load('tree.png'),[50,50]),
-    floor : pygame.transform.scale(pygame.image.load('floor.png'),[50,50])
+    tree: pygame.transform.scale(pygame.image.load('tree.png'), [50, 50]),
+    floor: pygame.transform.scale(pygame.image.load('floor.png'), [50, 50])
 }
 
 list_with_final_1 = [
-                    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree],
-                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
-                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
-                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
-                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
-                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
-                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
-                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
-                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
-                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
-                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
-                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
-                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
-                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
-                    [tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree],
-                    ]
+
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree],
+]
 list_with_final_2 = [
 
     [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
@@ -181,6 +182,7 @@ list_with_final_3 = [
     [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
 ]
 list_with_final_4 = [
+
     [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
     [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
     [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],

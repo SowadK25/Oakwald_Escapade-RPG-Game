@@ -4,7 +4,7 @@ import pygame
 class Player(pygame.sprite.Sprite):
     """Class that contains player movement and spawning"""
   
-   # Initializing the class
+# Initializing the class
     def __init__(self):
         super().__init__()
         
@@ -52,4 +52,3 @@ class Player(pygame.sprite.Sprite):
 
 
 player = Player()
-
