@@ -12,6 +12,7 @@ pygame.display.set_caption('Oakwald Escapade')
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
+# Max and min speeds of player
 max_s = 10
 min_s = -5
 
@@ -91,22 +92,29 @@ while running:
         if event.type == pygame.QUIT:  # Stops running if the program quits
             running = False
 
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:  # If player hits a key
+            # Player moves up if w is entered and bigger than minimum speed
             if event.key == pygame.K_w and player.speed > min_s:
                 player.speed += 2
+            # Player moves down if s is entered and speed is smaller than maximum
             if event.key == pygame.K_s and player.speed < max_s:
                 player.speed -= 2
+            # Player moves left if a is hit
             if event.key == pygame.K_a:
                 player.angle_speed -= 2
+            # Player moves right if d is hit
             if event.key == pygame.K_d:
                 player.angle_speed += 2
 
-            if event.key == pygame.K_SPACE:
-                shoot = Shoot(player.rect.center, player.direction)
+            if event.key == pygame.K_SPACE:  # If player hits spacebar
+                shoot = Shoot(player.rect.center, player.direction)  # Bullets start where player is at
+
+                # Adding shooting to both sprite lists
                 all_sprites_list.add(shoot)
                 shooting_list.add(shoot)
 
-        if event.type == pygame.KEYUP:
+        if event.type == pygame.KEYUP:  # If the key is let go
+            # Angle is reset back to 0 if let go for left and right movement
             if event.key == pygame.K_a:
                 player.angle_speed = 0
             if event.key == pygame.K_d:
