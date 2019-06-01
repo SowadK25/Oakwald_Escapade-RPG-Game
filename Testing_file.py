@@ -66,12 +66,40 @@ class Player(pygame.sprite.Sprite):
             player.move_down()
 
 
+class Shoot(pygame.sprite.Sprite):
+    """Contains how the player will shoot"""
+
+    def __init__(self):
+        super().__init__()
+        # Class is being initialized
+
+        self.image = pygame.Surface([10, 10])
+        self.image.fill(BLACK)
+        self.rect = self.image.get_rect()
+
+        self.speed_x = 8
+        self.speed_y = 8
+
+    def update(self):
+        if player.move_left():
+            self.rect.x -= self.speed_x
+        if player.move_right():
+            self.rect.x += self.speed_x
+        if player.move_up():
+            self.rect.y -= self.speed_y
+
+
+
 clock = pygame.time.Clock()
 
 all_sprites_list = pygame.sprite.Group()
+shooting_list = pygame.sprite.Group()
 
 player = Player()
+shoot = Shoot()
+
 all_sprites_list.add(player)
+all_sprites_list.add(shoot)
 
 
 running = True  # While the game is running, the following actions will be done
@@ -79,6 +107,13 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # Stops running if the program quits
             running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                shoot.rect.x = player.rect.x
+                shoot.rect.y = player.rect.y
+                all_sprites_list.add(shoot)
+                shooting_list.add(shoot)
 
     pygame.display.flip()
     all_sprites_list.clear(screen, image)  # Clearing all sprites from the screen
