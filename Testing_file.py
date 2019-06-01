@@ -42,7 +42,15 @@ class Player(pygame.sprite.Sprite):
         self.angle = 0
 
     def update(self):
+        """Angle, position, direction of player updated for smoothness"""
+        self.image = pygame.transform.rotate(self.org_image, -self.angle)
+        self.rect = self.image.get_rect()
+        self.direction.rotate_ip(self.angle_speed)  # Rotating vector direction and image
+        self.angle += self.angle_speed  # Angle of player moved at a fixed speed
 
+        # Updating player's position vector and rectangle surface
+        self.position += self.direction * self.speed
+        self.rect.center = self.position
 
 
 class Shoot(pygame.sprite.Sprite):
