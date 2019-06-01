@@ -95,16 +95,16 @@ while running:
         if event.type == pygame.KEYDOWN:  # If player hits a key
             # Player moves up if w is entered and bigger than minimum speed
             if event.key == pygame.K_w and player.speed > min_s:
-                player.speed += 2
+                player.speed += 5
             # Player moves down if s is entered and speed is smaller than maximum
             if event.key == pygame.K_s and player.speed < max_s:
-                player.speed -= 2
+                player.speed -= 5
             # Player moves left if a is hit
             if event.key == pygame.K_a:
-                player.angle_speed -= 2
+                player.angle_speed -= 3
             # Player moves right if d is hit
             if event.key == pygame.K_d:
-                player.angle_speed += 2
+                player.angle_speed += 3
 
             if event.key == pygame.K_SPACE:  # If player hits spacebar
                 shoot = Shoot(player.rect.center, player.direction)  # Bullets start where player is at
@@ -119,6 +119,10 @@ while running:
                 player.angle_speed = 0
             if event.key == pygame.K_d:
                 player.angle_speed = 0
+            if event.key == pygame.K_w:
+                player.speed = 0
+            if event.key == pygame.K_s:
+                player.speed = 0
 
     pygame.display.flip()
     all_sprites_list.clear(screen, image)  # Clearing all sprites from the screen
