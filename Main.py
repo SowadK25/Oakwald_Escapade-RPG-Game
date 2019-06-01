@@ -1,97 +1,71 @@
-import pygame
+import pygame # imports
 import random
-from Tree_class import Tree
+from Tree_class import Tree # imports of classes
 from Floor_class import Floor
+
+
 pygame.init()
-# foo = 1
+
+# Dimensions of the screen
 height = 750
 width = 750
-screen = pygame.display.set_mode((height, width))
-pygame.display.set_caption('Oakwald Escapade')
-# colours
+
+
+screen = pygame.display.set_mode((height, width)) # screen display size
+pygame.display.set_caption('Oakwald Escapade') # screen caption
+
+# colors
+
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BROWN = (139, 69, 19)
 
-# function for the word
+# clock
+
+clock = pygame.time.Clock()
+
+
+# for sentences
 
 def sentence(font, word, color, x, y):
     text = font.render(word, True, color)
     screen.blit(text, (x, y))
     pygame.display.update()
 
+# sizes for sentences
 small = pygame.font.SysFont("TimesNewRoman", 25)
 big = pygame.font.SysFont("TimesNewRoman", 50)
 
-
-# for the maps
+# x and y directions for map
 Tree_x = 0
 Tree_y = 0
 Floor_x = 0
 Floor_y = 0
-
-
-# ignore this for now
-
-
-
-def objects(text, font):
-    textSurface = font.render(text, True, BLACK)
-    return textSurface, textSurface.get_rect()
-
-
-# for button function
-def button (text,x,y,w,h,active,inactive,action = None):
-    position = pygame.mouse.get_pos()
-    clicked = pygame.mouse.get_pressed()
-
-    if x+w > position[0] > x and y+h > position[1] > y:
-        pygame.draw.rect(screen, active, (x,y,w,h))
-
-        if clicked[0] == 1 and action != None:
-            print('working') # what the button is going to do
-    else:
-        pygame.draw.rect(screen, inactive,(x,y,w,h))
-
-    TextSurf, TextRect = objects("WORKING" , big)
-    TextRect.center = ((x+(w/2)), (y+(h/2)))
-    screen.blit(TextSurf, TextRect)
 # For main loop
+screen.fill(WHITE)
+
 close = True
+# maps
 
-# random number between 5 for spawning
-
-list_of_numbers = [1, 2, 3, 4, 5]
-spawn_location = []
-spawn_location.append(random.choice(list_of_numbers))
-
-
-# for spawn location number between 5
-"""while close:
-    for a in range(5):
-        if foo == 1:
-            one = random.choice(list_of_number)"""
-
-
-# this is map 0 is nothing 1 is wall
 map1 = [
-    '111110000011111',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '100000000000001',
-    '111111111111111',
+'aaaaabbbbbaaaaa',
+'abbbbbbbbbbbbba',
+'abbbbbbbbbbbbba',
+'abbbbbbbbbbbbba',
+'abbbbbbbbbbbbba',
+'abbbbbbbbbbbbba',
+'abbbbbbbbbbbbba',
+'abbbbbbbbbbbbba',
+'abbbbbbbbbbbbba',
+'abbbbbbbbbbbbba',
+'abbbbbbbbbbbbba',
+'abbbbbbbbbbbbba',
+'abbbbbbbbbbbbba',
+'abbbbbbbbbbbbba',
+'aaaaaaaaaaaaaaa',
+
 ]
 map2 = [
     '111110000011111',
@@ -144,6 +118,90 @@ map4 = [
     '100000000000001',
     '111110000011111',
 ]
+
+# for the map
+floor = 0
+tree = 1
+image_library = {
+    tree : pygame.transform.scale(pygame.image.load('pawn.png'),[50,50]),
+    floor : pygame.transform.scale(pygame.image.load('grass.png'),[50,50])
+}
+
+list_with_final_1 = [
+                    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree],
+                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+                    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+                    [tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree],
+                    ]
+list_with_final_2 = [
+
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
+]
+list_with_final_3 = [
+
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
+]
+list_with_final_4 = [
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
+]
+size_of_tile = 50
+
+final_final_map = [list_with_final_1]
+
+
 lvl_type = 2
 clear = []  # used for clearing the list
 final_level = []  # final list for map
@@ -163,17 +221,6 @@ while close:
     else:
         break
 
-
-
-for row in final_level:
-    for col in row:
-        if col == '1':
-            Tree((Tree_x, Tree_y))
-        if col == '0':
-            Floor((Floor_x, Floor_y))
-    Tree_y += 50
-    Tree_x = 0
-
 while close:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -183,5 +230,8 @@ while close:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 quit()
-    button(100,100,20,20,GREEN,BROWN,None)
-    pygame.display.flip()
+    for row in range(15):
+        for column in range(15):
+            screen.blit(image_library[list_with_final_1[row][column]], (column * size_of_tile, row * size_of_tile))
+    pygame.display.update()
+    clock.tick(60)
