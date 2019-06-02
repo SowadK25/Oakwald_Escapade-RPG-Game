@@ -1,10 +1,11 @@
 import pygame
-from pygame.math import Vector2
+from Player_class import Player
+from Shooting_class import Shoot
 
 pygame.init()
 
-height = 750
-width = 750
+height = 675
+width = 675
 screen = pygame.display.set_mode((height, width))
 pygame.display.set_caption('Oakwald Escapade')
 
@@ -19,61 +20,6 @@ min_s = -5
 image = pygame.image.load("grass.png")
 screen.blit(image, (0, 0))
 pygame.display.flip()
-
-
-class Player(pygame.sprite.Sprite):
-    """Class that contains player movement and spawning"""
-
-    # Initializing the class
-    def __init__(self):
-        super().__init__()
-
-        # Loading player image and putting it in a surface and rectangle
-        self.image = pygame.Surface([750, 750])
-        self.image = pygame.image.load("pawn.png")
-        self.org_image = self.image
-        self.rect = self.image.get_rect()
-        self.pos = (200, 200)  # Start position of player
-        self.position = Vector2(self.pos)  # Position set as a vector quantity
-        self.direction = Vector2(0, -1)  # Vector points upwards
-
-        # Setting player speed, angle speed, and angle size
-        self.speed = 0
-        self.angle_speed = 0
-        self.angle = 0
-
-    def update(self):
-        """Angle, position, direction of player updated for smoothness"""
-        self.image = pygame.transform.rotate(self.org_image, -self.angle)
-        self.rect = self.image.get_rect()
-        self.direction.rotate_ip(self.angle_speed)  # Rotating vector direction and image
-        self.angle += self.angle_speed  # Angle of player moved at a fixed speed
-
-        # Updating player's position vector and rectangle surface
-        self.position += self.direction * self.speed
-        self.rect.center = self.position
-
-
-class Shoot(pygame.sprite.Sprite):
-    """Contains how the player will shoot"""
-
-    def __init__(self, pos, direction):
-        super().__init__()
-        # Class is being initialized
-
-        # Creating 10 by 10 square for bullet
-        self.image = pygame.Surface([10, 10])
-        self.image.fill(BLACK)
-        self.rect = self.image.get_rect()
-
-        # Bullets position and speed is being set as a vector quantity
-        self.position = Vector2(pos)
-        self.vel = direction * 10
-
-    def update(self):
-        """Allow bullets to be moved"""
-        self.position += self.vel  # Bullet will move based on its velocity
-        self.rect.center = self.position  # Bullet rectangle is updated
 
 
 clock = pygame.time.Clock()
