@@ -26,6 +26,13 @@ pygame.display.flip()
 
 clock = pygame.time.Clock()
 
+
+def sound_effects(sound):
+    """Plays sound effects requested"""
+    noise = pygame.mixer.Sound(sound)
+    noise.play(0)
+
+
 # Creating sprite lists for all sprites made
 all_sprites_list = pygame.sprite.Group()
 shooting_list = pygame.sprite.Group()
@@ -77,6 +84,7 @@ while running:
 
             if event.key == pygame.K_SPACE:  # If player hits spacebar
                 shoot = Shoot(player.rect.center, player.direction)  # Bullets start where player is at
+                sound_effects("Shooting.wav")
 
                 # Adding shooting to both sprite lists
                 all_sprites_list.add(shoot)
