@@ -1,6 +1,8 @@
 import pygame
+import random
 from Player_class import Player
 from Shooting_class import Shoot
+from Enemy_class import Enemy
 
 pygame.init()
 
@@ -26,11 +28,27 @@ clock = pygame.time.Clock()
 
 all_sprites_list = pygame.sprite.Group()
 shooting_list = pygame.sprite.Group()
+enemy_list = pygame.sprite.Group()
 
 player = Player()
+enemy = Enemy()
 
 all_sprites_list.add(player)
 
+for i in range(25):
+    enemy = Enemy()
+    enemy.rect.x = random.randrange(width)
+    enemy.rect.y = random.randrange(height)
+
+    enemy.speed_x = random.randrange(-2, 2)
+    enemy.speed_y = random.randrange(-2, 2)
+    enemy.left = 0
+    enemy.top = 0
+    enemy.right = width
+    enemy.bottom = height
+
+    enemy_list.add(enemy)
+    all_sprites_list.add(enemy)
 
 running = True  # While the game is running, the following actions will be done
 while running:
