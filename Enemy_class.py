@@ -3,10 +3,9 @@
 
 import pygame
 
+# Screen dimensions
 height = 675
 width = 675
-
-RED = (255, 0, 0)
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -16,22 +15,27 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
+        # Creating surface and loading image into rect for enemy
         self.image = pygame.Surface([30, 20])
         self.image = pygame.image.load("enemy.png")
         self.rect = self.image.get_rect()
+        # Screen dimension variables to be used later
         self.left = 0
         self.right = 0
         self.top = 0
         self.bottom = 0
-
+        # Speed of enemy
         self.speed_y = 0
         self.speed_x = 0
 
     def update(self):
         """Enemies will move and bounce off walls"""
+
+        # Enemies will move by its speed specified
         self.rect.x += self.speed_x
         self.rect.y += self.speed_y
 
+        # If the enemy reaches end of the screen, it switches its direction
         if self.rect.right >= self.right or self.rect.left <= self.left:
             self.speed_x *= -1
 

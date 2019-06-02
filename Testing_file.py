@@ -26,27 +26,32 @@ pygame.display.flip()
 
 clock = pygame.time.Clock()
 
+# Creating sprite lists for all sprites made
 all_sprites_list = pygame.sprite.Group()
 shooting_list = pygame.sprite.Group()
 enemy_list = pygame.sprite.Group()
 
+# Instance variables for player and enemy
 player = Player()
 enemy = Enemy()
 
 all_sprites_list.add(player)
 
-for i in range(20):
+for i in range(20):  # 20 enemies will spawn
     enemy = Enemy()
-    enemy.rect.x = random.randrange(width)
+    enemy.rect.x = random.randrange(width)  # Enemies will randomly spawn within the screen
     enemy.rect.y = random.randrange(height)
 
-    enemy.speed_x = random.randrange(-2, 2)
+    enemy.speed_x = random.randrange(-2, 2)  # Enemies will have a speed within these values
     enemy.speed_y = random.randrange(-2, 2)
+
+    # Boundaries set for the enemy on screen
     enemy.left = 0
     enemy.top = 0
     enemy.right = width
     enemy.bottom = height
 
+    # Adding enemies to both sprite lists created
     enemy_list.add(enemy)
     all_sprites_list.add(enemy)
 
@@ -96,4 +101,4 @@ while running:
 
     clock.tick(60)
 
-pygame.quit()
+pygame.quit()  # Quits pygame
