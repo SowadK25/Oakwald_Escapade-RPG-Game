@@ -35,7 +35,7 @@ enemy = Enemy()
 
 all_sprites_list.add(player)
 
-for i in range(25):
+for i in range(20):
     enemy = Enemy()
     enemy.rect.x = random.randrange(width)
     enemy.rect.y = random.randrange(height)

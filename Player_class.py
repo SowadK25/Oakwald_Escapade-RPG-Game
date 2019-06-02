@@ -12,7 +12,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         
         self.image = pygame.Surface([750, 750])
-        self.image = pygame.image.load("image.png")
+        self.image = pygame.image.load("shooter_player.png")
         self.org_image = self.image
         self.rect = self.image.get_rect()
         self.pos = (200, 200)  # Start position of player

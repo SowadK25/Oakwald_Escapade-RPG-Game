@@ -1,3 +1,6 @@
+# Enemy character link: https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjstpKw2cviAhUBm1kKHaD2BWkQjRx6BAgB
+# EAU&url=http%3A%2F%2Fpixelartmaker.com%2Fart%2F18aa1ab89b62bed&psig=AOvVaw3qtbOL5CJfSSaert4wUren&ust=1559595494982380
+
 import pygame
 
 height = 675
@@ -14,7 +17,7 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__()
 
         self.image = pygame.Surface([30, 20])
-        self.image.fill(RED)
+        self.image = pygame.image.load("enemy.png")
         self.rect = self.image.get_rect()
         self.left = 0
         self.right = 0
