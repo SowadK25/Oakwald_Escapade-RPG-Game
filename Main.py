@@ -39,11 +39,6 @@ def sentence(font, word, color, x, y):
 small = pygame.font.SysFont("TimesNewRoman", 25)
 big = pygame.font.SysFont("TimesNewRoman", 50)
 
-# x and y directions for map
-Tree_x = 0
-Tree_y = 0
-Floor_x = 0
-Floor_y = 0
 # For main loop
 screen.fill(WHITE)
 
@@ -151,7 +146,7 @@ while close:
     else:
         break
 
-print(map1)
+print(final_level)
 while close:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

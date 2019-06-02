@@ -14,6 +14,7 @@ WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BROWN = (139, 69, 19)
+clock = pygame.time.Clock()
 
 # function for the word
 
