@@ -11,9 +11,13 @@ width = 675
 screen = pygame.display.set_mode((height, width))
 pygame.display.set_caption('Oakwald Escapade')
 
-# colours
+# Colours
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+
+# Variables for player lives and score
+lives = 3
+score = 0
 
 # Max and min speeds of player
 max_s = 10
