@@ -224,6 +224,7 @@ while running:
             if event.key == pygame.K_w:
                 player.speed = 0
             if event.key == pygame.K_s:
+
                 player.speed = 0
 
     for row in range(15):
