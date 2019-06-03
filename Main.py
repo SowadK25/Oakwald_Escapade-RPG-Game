@@ -1,5 +1,6 @@
 import pygame  # imports
 import random
+import time
 from Player_class import Player
 from Shooting_class import Shoot
 from Enemy_class import Enemy
@@ -11,15 +12,16 @@ pygame.init()
 height = 675
 width = 675
 
+# Player score and lives variables
 score = 0
-lives = 3
+lives = 15
 
 
 screen = pygame.display.set_mode((height, width))  # screen display size
+screen_rect = screen.get_rect()
 pygame.display.set_caption('Oakwald Escapade')  # screen caption
 
 # colors
-
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
@@ -27,9 +29,9 @@ RED = (255, 0, 0)
 BROWN = (139, 69, 19)
 GREY = (104, 109, 105)
 
-# clock
+enemy_speeds = [-2, -1, 1, 2]
 
-clock = pygame.time.Clock()
+clock = pygame.time.Clock()  # clock
 
 
 # for sentences
@@ -47,11 +49,11 @@ def sound_effects(sound):
     noise.play(0)
 
 
-def scoreboard():
+def scoreboard(statement, value, x, y1, y2):
     """Contains the scoreboard for the player"""
-    box = small.render("Score: " + str(score), True, WHITE)  # Rendering font for the scoreboard
-    screen.fill(GREY, rect=box.get_rect(bottomleft=(50, 625)))  # Filling the background of the scoreboard with brown
-    screen.blit(box, (50, 600))  # Putting the scoreboard in the top right corner of the screen
+    box = small.render(statement + str(value), True, WHITE)  # Rendering font for the scoreboard
+    screen.fill(GREY, rect=box.get_rect(bottomleft=(x, y1)))  # Filling the background of the scoreboard with brown
+    screen.blit(box, (x, y2))  # Putting the scoreboard in the top right corner of the screen
     pygame.display.update()  # Updating the screen
 
 
@@ -73,7 +75,7 @@ floor = 0
 tree = 1
 
 image_library = {
-    tree: pygame.transform.scale(pygame.image.load('grass & tree 123.png'), [45, 45]),
+    tree: pygame.transform.scale(pygame.image.load('tree.png'), [45, 45]),
     floor: pygame.transform.scale(pygame.image.load('floor.png'), [45, 45])
 }
 
@@ -155,13 +157,14 @@ lvl_type = 2
 clear = []  # used for clearing the list
 final_level = []  # final list for map
 
+# Creating sprite groups
 all_sprites_list = pygame.sprite.Group()
 shooting_list = pygame.sprite.Group()
 enemy_list = pygame.sprite.Group()
 
+# Instance variables
 player = Player()
 enemy = Enemy()
-
 
 all_sprites_list.add(player)
 
@@ -171,8 +174,8 @@ for i in range(20):  # 20 enemies will spawn
     enemy.rect.x = random.randrange(width)  # Enemies will randomly spawn within the screen
     enemy.rect.y = random.randrange(height)
 
-    enemy.speed_x = random.randrange(-2, 2)  # Enemies will have a speed within these values
-    enemy.speed_y = random.randrange(-2, 2)
+    enemy.speed_x = random.choice(enemy_speeds)  # Enemies will have a speed within these values
+    enemy.speed_y = random.choice(enemy_speeds)
 
     # Boundaries set for the enemy on screen
     enemy.left = 0
@@ -200,9 +203,9 @@ while close:
     else:
         break
 
-while close:
+while close:  # While the game is running
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT:  # Quit pygame if event is quit
             pygame.quit()
             quit()
 
@@ -222,14 +225,14 @@ while close:
 
             if event.key == pygame.K_SPACE:  # If player hits spacebar
                 shoot = Shoot(player.rect.center, player.direction)  # Bullets start where player is at
-                sound_effects("Shooting.wav")
+                sound_effects("Shooting.wav")  # Sound effects function called
 
                 # Adding shooting to both sprite lists
                 all_sprites_list.add(shoot)
                 shooting_list.add(shoot)
 
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_ESCAPE:
+        if event.type == pygame.KEYUP:  # When the key is released
+            if event.key == pygame.K_ESCAPE:  # Press escape to quit
                 pygame.quit()
                 quit()
             # Angle is reset back to 0 if let go for left and right movement
@@ -242,6 +245,23 @@ while close:
             if event.key == pygame.K_s:
                 player.speed = 0
 
+    kills = pygame.sprite.groupcollide(enemy_list, shooting_list, True, True)  # Checking for enemy hit by shooting
+
+    for hit in kills:
+        enemy = Enemy()
+        score += 1  # Add 1 to score each time enemy is shot
+
+        # Remove enemies from sprite lists
+        all_sprites_list.remove(enemy)
+        enemy_list.remove(enemy)
+        enemy.kill()  # Enemy taken off the screen
+
+    die = pygame.sprite.spritecollide(player, enemy_list, False)  # Check if player is hit by an enemy
+    if die:  # If they player is hit
+        lives -= 1  # Subtract 1 from their lives
+        if lives <= 0:
+            lives = 0
+
     screen.fill(WHITE)
     for row in range(15):
         for column in range(15):
@@ -249,7 +269,9 @@ while close:
     all_sprites_list.update()  # Updating the all sprites list
     all_sprites_list.draw(screen)  # Drawing all sprites created on the screen
 
-    scoreboard()
+    # Scoreboard function called to show player lives and current score
+    scoreboard("Score: ", score, 50, 625, 600)
+    scoreboard("Lives: ", lives, 550, 625, 600)
     clock.tick(60)
     pygame.display.flip()
 
