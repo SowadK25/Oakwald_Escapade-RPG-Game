@@ -11,6 +11,9 @@ pygame.init()
 height = 675
 width = 675
 
+score = 0
+lives = 3
+
 
 screen = pygame.display.set_mode((height, width))  # screen display size
 pygame.display.set_caption('Oakwald Escapade')  # screen caption
@@ -22,6 +25,7 @@ WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BROWN = (139, 69, 19)
+GREY = (104, 109, 105)
 
 # clock
 
@@ -43,6 +47,14 @@ def sound_effects(sound):
     noise.play(0)
 
 
+def scoreboard():
+    """Contains the scoreboard for the player"""
+    box = small.render("Score: " + str(score), True, WHITE)  # Rendering font for the scoreboard
+    screen.fill(GREY, rect=box.get_rect(bottomleft=(50, 625)))  # Filling the background of the scoreboard with brown
+    screen.blit(box, (50, 600))  # Putting the scoreboard in the top right corner of the screen
+    pygame.display.update()  # Updating the screen
+
+
 # sizes for sentences
 small = pygame.font.SysFont("TimesNewRoman", 25)
 big = pygame.font.SysFont("TimesNewRoman", 50)
@@ -59,8 +71,9 @@ close = True
 # for the map
 floor = 0
 tree = 1
+
 image_library = {
-    tree: pygame.transform.scale(pygame.image.load('tree.png'), [45, 45]),
+    tree: pygame.transform.scale(pygame.image.load('grass & tree 123.png'), [45, 45]),
     floor: pygame.transform.scale(pygame.image.load('floor.png'), [45, 45])
 }
 
@@ -235,6 +248,8 @@ while close:
             screen.blit(image_library[map1[row][column]], (column * size_of_tile, row * size_of_tile))
     all_sprites_list.update()  # Updating the all sprites list
     all_sprites_list.draw(screen)  # Drawing all sprites created on the screen
+
+    scoreboard()
     clock.tick(60)
     pygame.display.flip()
 
