@@ -1,5 +1,5 @@
-# Player image link: https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwivr7r5ssviAhXOuFkKHagXBc0QjRx6BAgBEAU&url=https%3A%2F%2Fopengameart.org%2Fcontent%2Fanimated-top-down-survivor-player&psig=AOvVaw2UUZGjH8im__BITi9uZFX_&ust=1559585520031182
-
+# Player image link:
+# https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwivr7r5ssviAhXOuFkKHagXBc0QjRx6BAgBEAU&url=https%3A%2F%2Fopengameart.org%2Fcontent%2Fanimated-top-down-survivor-player&psig=AOvVaw2UUZGjH8im__BITi9uZFX_&ust=1559585520031182
 import pygame
 from pygame.math import Vector2
 
@@ -34,4 +34,3 @@ class Player(pygame.sprite.Sprite):
         # Updating player's position vector and rectangle surface
         self.position += self.direction * self.speed
         self.rect.center = self.position
-

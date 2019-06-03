@@ -1,8 +1,5 @@
 import pygame
-import random
-from Player_class import Player
-from Shooting_class import Shoot
-from Enemy_class import Enemy
+from pygame.math import Vector2
 
 pygame.init()
 
@@ -11,60 +8,182 @@ width = 675
 screen = pygame.display.set_mode((height, width))
 pygame.display.set_caption('Oakwald Escapade')
 
-# Colours
+# colours
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+clock = pygame.time.Clock()
 
-# Variables for player lives and score
-lives = 3
-score = 0
-
+close = True
 # Max and min speeds of player
 max_s = 10
 min_s = -5
 
-image = pygame.image.load("grass.png")
-screen.blit(image, (0, 0))
-pygame.display.flip()
+floor = 0
+tree = 1
+image_library = {
+    tree: pygame.transform.scale(pygame.image.load('tree.png'), [45, 45]),
+    floor: pygame.transform.scale(pygame.image.load('floor.png'), [45, 45])
+}
+
+map1 = [
+
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree],
+    [tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree, tree],
+]
+map2 = [
+
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
+]
+map3 = [
+
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
+]
+map4 = [
+
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, ],
+    [floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, floor, tree, ],
+    [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree, ],
+]
+size_of_tile = 45
+
+lvl_type = 2
+clear = []  # used for clearing the list
+final_level = []  # final list for map
+
+while close:
+    if lvl_type == 1:
+        final_level.append(clear)
+        final_level.append(map1)
+    if lvl_type == 2:
+        final_level.append(clear)
+        final_level.append(map2)
+    if lvl_type == 3:
+        final_level.append(clear)
+        final_level.append(map3)
+    if lvl_type == 4:
+        final_level.append(clear)
+        final_level.append(map4)
+    else:
+        break
+
+
+class Player(pygame.sprite.Sprite):
+    """Class that contains player movement and spawning"""
+
+    # Initializing the class
+    def __init__(self):
+        super().__init__()
+
+        # Loading player image and putting it in a surface and rectangle
+        self.image = pygame.Surface([750, 750])
+        self.image = pygame.image.load("pawn.png")
+        self.org_image = self.image
+        self.rect = self.image.get_rect()
+        self.pos = (200, 200)  # Start position of player
+        self.position = Vector2(self.pos)  # Position set as a vector quantity
+        self.direction = Vector2(0, -1)  # Vector points upwards
+
+        # Setting player speed, angle speed, and angle size
+        self.speed = 0
+        self.angle_speed = 0
+        self.angle = 0
+
+    def update(self):
+        """Angle, position, direction of player updated for smoothness"""
+        self.image = pygame.transform.rotate(self.org_image, -self.angle)
+        self.rect = self.image.get_rect()
+        self.direction.rotate_ip(self.angle_speed)  # Rotating vector direction and image
+        self.angle += self.angle_speed  # Angle of player moved at a fixed speed
+
+        # Updating player's position vector and rectangle surface
+        self.position += self.direction * self.speed
+        self.rect.center = self.position
+
+
+class Shoot(pygame.sprite.Sprite):
+    """Contains how the player will shoot"""
+
+    def __init__(self, pos, direction):
+        super().__init__()
+        # Class is being initialized
+
+        # Creating 10 by 10 square for bullet
+        self.image = pygame.Surface([10, 10])
+        self.image.fill(BLACK)
+        self.rect = self.image.get_rect()
+
+        # Bullets position and speed is being set as a vector quantity
+        self.position = Vector2(pos)
+        self.vel = direction * 10
+
+    def update(self):
+        """Allow bullets to be moved"""
+        self.position += self.vel  # Bullet will move based on its velocity
+        self.rect.center = self.position  # Bullet rectangle is updated
 
 
 clock = pygame.time.Clock()
 
-
-def sound_effects(sound):
-    """Plays sound effects requested"""
-    noise = pygame.mixer.Sound(sound)
-    noise.play(0)
-
-
-# Creating sprite lists for all sprites made
 all_sprites_list = pygame.sprite.Group()
 shooting_list = pygame.sprite.Group()
-enemy_list = pygame.sprite.Group()
 
-# Instance variables for player and enemy
 player = Player()
-enemy = Enemy()
 
 all_sprites_list.add(player)
 
-for i in range(20):  # 20 enemies will spawn
-    enemy = Enemy()
-    enemy.rect.x = random.randrange(width)  # Enemies will randomly spawn within the screen
-    enemy.rect.y = random.randrange(height)
-
-    enemy.speed_x = random.randrange(-2, 2)  # Enemies will have a speed within these values
-    enemy.speed_y = random.randrange(-2, 2)
-
-    # Boundaries set for the enemy on screen
-    enemy.left = 0
-    enemy.top = 0
-    enemy.right = width
-    enemy.bottom = height
-
-    # Adding enemies to both sprite lists created
-    enemy_list.add(enemy)
-    all_sprites_list.add(enemy)
 
 running = True  # While the game is running, the following actions will be done
 while running:
@@ -88,7 +207,6 @@ while running:
 
             if event.key == pygame.K_SPACE:  # If player hits spacebar
                 shoot = Shoot(player.rect.center, player.direction)  # Bullets start where player is at
-                sound_effects("Shooting.wav")
 
                 # Adding shooting to both sprite lists
                 all_sprites_list.add(shoot)
@@ -103,14 +221,18 @@ while running:
             if event.key == pygame.K_w:
                 player.speed = 0
             if event.key == pygame.K_s:
+
                 player.speed = 0
 
+    for row in range(15):
+        for column in range(15):
+            screen.blit(image_library[map1[row][column]], (column * size_of_tile, row * size_of_tile))
     pygame.display.flip()
-    all_sprites_list.clear(screen, image)  # Clearing all sprites from the screen
+# Clearing all sprites from the screen
 
     all_sprites_list.update()  # Updating the all sprites list
     all_sprites_list.draw(screen)  # Drawing all sprites created on the screen
 
     clock.tick(60)
 
-pygame.quit()  # Quits pygame
+pygame.quit()
