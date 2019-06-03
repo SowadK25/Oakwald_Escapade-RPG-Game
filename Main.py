@@ -3,6 +3,7 @@ import random
 from Player_class import Player
 from Shooting_class import Shoot
 from Enemy_class import Enemy
+from Floor_class import Floors
 
 pygame.init()
 
@@ -146,6 +147,8 @@ enemy_list = pygame.sprite.Group()
 
 player = Player()
 enemy = Enemy()
+
+floor = Floors()
 
 all_sprites_list.add(player)
 
