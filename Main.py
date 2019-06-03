@@ -1,6 +1,8 @@
 import pygame  # imports
+import random
 from Player_class import Player
 from Shooting_class import Shoot
+from Enemy_class import Enemy
 # from Tree_class import Tree # imports of classes
 # from Floor_class import Floor
 
@@ -142,11 +144,31 @@ final_level = []  # final list for map
 
 all_sprites_list = pygame.sprite.Group()
 shooting_list = pygame.sprite.Group()
+enemy_list = pygame.sprite.Group()
 
 player = Player()
+enemy = Enemy()
 
 all_sprites_list.add(player)
 
+
+for i in range(20):  # 20 enemies will spawn
+    enemy = Enemy()
+    enemy.rect.x = random.randrange(width)  # Enemies will randomly spawn within the screen
+    enemy.rect.y = random.randrange(height)
+
+    enemy.speed_x = random.randrange(-2, 2)  # Enemies will have a speed within these values
+    enemy.speed_y = random.randrange(-2, 2)
+
+    # Boundaries set for the enemy on screen
+    enemy.left = 0
+    enemy.top = 0
+    enemy.right = width
+    enemy.bottom = height
+
+    # Adding enemies to both sprite lists created
+    enemy_list.add(enemy)
+    all_sprites_list.add(enemy)
 
 while close:
     if lvl_type == 1:
@@ -205,16 +227,15 @@ while close:
                 player.speed = 0
             if event.key == pygame.K_s:
                 player.speed = 0
-
+    screen.fill((255, 255, 255))
     for row in range(15):
         for column in range(15):
             screen.blit(image_library[map1[row][column]], (column * size_of_tile, row * size_of_tile))
-            pygame.display.update()
-    pygame.display.flip()
     #all_sprites_list.clear(screen, )  # Clearing all sprites from the screen
 
     all_sprites_list.update()  # Updating the all sprites list
     all_sprites_list.draw(screen)  # Drawing all sprites created on the screen
     clock.tick(60)
+    pygame.display.flip()
 
 pygame.quit()
