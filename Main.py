@@ -3,7 +3,7 @@ import random
 from Player_class import Player
 from Shooting_class import Shoot
 from Enemy_class import Enemy
-from Floor_class import Floors
+from Floor_class import Floor
 
 pygame.init()
 
@@ -31,6 +31,7 @@ clock = pygame.time.Clock()
 # for sentences
 
 def sentence(font, word, color, x, y):
+    """Sentence making function"""
     text = font.render(word, True, color)
     screen.blit(text, (x, y))
     pygame.display.update()
@@ -148,7 +149,6 @@ enemy_list = pygame.sprite.Group()
 player = Player()
 enemy = Enemy()
 
-floor = Floors()
 
 all_sprites_list.add(player)
 
