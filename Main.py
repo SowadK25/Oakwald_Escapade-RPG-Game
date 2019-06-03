@@ -3,9 +3,6 @@ import random
 from Player_class import Player
 from Shooting_class import Shoot
 from Enemy_class import Enemy
-# from Tree_class import Tree # imports of classes
-# from Floor_class import Floor
-
 
 pygame.init()
 
@@ -36,6 +33,12 @@ def sentence(font, word, color, x, y):
     text = font.render(word, True, color)
     screen.blit(text, (x, y))
     pygame.display.update()
+
+
+def sound_effects(sound):
+    """Plays sound effects requested"""
+    noise = pygame.mixer.Sound(sound)
+    noise.play(0)
 
 
 # sizes for sentences
@@ -203,6 +206,7 @@ while close:
 
             if event.key == pygame.K_SPACE:  # If player hits spacebar
                 shoot = Shoot(player.rect.center, player.direction)  # Bullets start where player is at
+                sound_effects("Shooting.wav")
 
                 # Adding shooting to both sprite lists
                 all_sprites_list.add(shoot)
@@ -221,6 +225,7 @@ while close:
                 player.speed = 0
             if event.key == pygame.K_s:
                 player.speed = 0
+
     screen.fill(WHITE)
     for row in range(15):
         for column in range(15):
