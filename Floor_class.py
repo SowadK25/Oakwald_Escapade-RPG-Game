@@ -10,3 +10,10 @@ class Floor(pygame.sprite.Sprite):
 
         Floors.append(self)
         self.rect = pygame.Rect(position [0], position [1], 50, 50)
+
+
+class bestClassInTheGame:
+    def __init__(self):
+        pass
+
+variable = bestClassInTheGame()

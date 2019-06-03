@@ -1,9 +1,11 @@
 import pygame  # imports
 import random
+
+# Class imports
 from Player_class import Player
 from Shooting_class import Shoot
 from Enemy_class import Enemy
-# from Tree_class import Tree # imports of classes
+# from Tree_class import Tree
 # from Floor_class import Floor
 
 
@@ -54,11 +56,25 @@ close = True
 # for the map
 floor = 0
 tree = 1
+
+
+class LoadImage:
+    def __init__(self, image, name):
+        self.image = pygame.transform.scale(pygame.image.load(image), [45, 45])
+        self.rect = self.image.get_rect()
+        self.name = name
+
+
+image_library = {
+    tree: LoadImage("tree.png", "tree"),
+    floor: LoadImage('floor.png', "floor")
+}
+'''
 image_library = {
     tree: pygame.transform.scale(pygame.image.load('tree.png'), [45, 45]),
     floor: pygame.transform.scale(pygame.image.load('floor.png'), [45, 45])
 }
-
+'''
 map1 = [
 
     [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree],
@@ -225,7 +241,7 @@ while close:
     screen.fill((255, 255, 255))
     for row in range(15):
         for column in range(15):
-            screen.blit(image_library[map1[row][column]], (column * size_of_tile, row * size_of_tile))
+            screen.blit(image_library[map1[row][column]].image, (column * size_of_tile, row * size_of_tile))
     #all_sprites_list.clear(screen, )  # Clearing all sprites from the screen
 
     all_sprites_list.update()  # Updating the all sprites list
