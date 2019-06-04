@@ -27,6 +27,8 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BROWN = (139, 69, 19)
 GREY = (104, 109, 105)
+YELLOW = (252, 252, 25)
+ORANGE = (242, 141, 19)
 
 enemy_speeds = [-2, -1, 1, 2]
 
@@ -48,12 +50,17 @@ def sound_effects(sound):
     noise.play(0)
 
 
-def scoreboard(statement, value, x, y1, y2):
+def scoreboard(statement, value, x, y1, y2, color):
     """Contains the scoreboard for the player"""
-    box = small.render(statement + str(value), True, WHITE)  # Rendering font for the scoreboard
+    box = small.render(statement + str(value), True, color)  # Rendering font for the scoreboard
     screen.fill(GREY, rect=box.get_rect(bottomleft=(x, y1)))  # Filling the background of the scoreboard with brown
     screen.blit(box, (x, y2))  # Putting the scoreboard in the top right corner of the screen
     pygame.display.update()  # Updating the screen
+
+
+def win_function():
+    """Will be called when the player wins"""
+    pass
 
 
 # sizes for sentences
@@ -269,8 +276,17 @@ def game():
         all_sprites_list.draw(screen)  # Drawing all sprites created on the screen
 
         # Scoreboard function called to show player lives and current score
-        scoreboard("Score: ", score, 50, 625, 600)
-        scoreboard("HP: ", hp, 550, 625, 600)
+        scoreboard("Score: ", score, 50, 625, 600, WHITE)
+
+        if hp <= 100:
+            scoreboard("HP: ", hp, 550, 625, 600, GREEN)
+        elif hp <= 75:
+            scoreboard("HP: ", hp, 550, 625, 600, ORANGE)
+        if hp <= 50:
+            scoreboard("HP: ", hp, 550, 625, 600, YELLOW)
+        if hp <= 25:
+            scoreboard("HP: ", hp, 550, 625, 600, RED)
+
         clock.tick(60)
         pygame.display.flip()
 
