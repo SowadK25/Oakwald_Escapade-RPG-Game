@@ -205,7 +205,7 @@ while running:
             if event.key == pygame.K_d:
                 player.angle_speed += 3
 
-            if event.key == pygame.K_SPACE:  # If player hits spacebar
+            if event.key == pygame.K_SPACE:  # If player hits space
                 shoot = Shoot(player.rect.center, player.direction)  # Bullets start where player is at
 
                 # Adding shooting to both sprite lists
