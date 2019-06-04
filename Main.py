@@ -161,12 +161,14 @@ enemy_list = pygame.sprite.Group()
 
 # Instance variables
 player = Player()
-enemy = Enemy()
 
 all_sprites_list.add(player)
 
+
 def game():
 
+    global score
+    global lives
     for i in range(20):  # 20 enemies will spawn
         enemy = Enemy()
         enemy.rect.x = random.randrange(width)  # Enemies will randomly spawn within the screen
@@ -272,4 +274,8 @@ def game():
         scoreboard("Lives: ", lives, 550, 625, 600)
         clock.tick(60)
         pygame.display.flip()
-pygame.quit()
+
+    pygame.quit()
+
+
+game()
