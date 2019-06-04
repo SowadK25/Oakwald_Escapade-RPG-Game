@@ -1,6 +1,5 @@
 import pygame  # imports
 import random
-import time
 from Player_class import Player
 from Shooting_class import Shoot
 from Enemy_class import Enemy
@@ -14,7 +13,7 @@ width = 675
 
 # Player score and lives variables
 score = 0
-lives = 15
+hp = 100
 
 
 screen = pygame.display.set_mode((height, width))  # screen display size
@@ -168,7 +167,7 @@ all_sprites_list.add(player)
 def game():
 
     global score
-    global lives
+    global hp
     for i in range(20):  # 20 enemies will spawn
         enemy = Enemy()
         enemy.rect.x = random.randrange(width)  # Enemies will randomly spawn within the screen
@@ -258,9 +257,9 @@ def game():
 
         die = pygame.sprite.spritecollide(player, enemy_list, False)  # Check if player is hit by an enemy
         if die:  # If they player is hit
-            lives -= 1  # Subtract 1 from their lives
-            if lives <= 0:
-                lives = 0
+            hp -= 1  # Subtract 1 from their lives
+            if hp <= 0:
+                hp = 0
 
         screen.fill(WHITE)
         for row in range(15):
@@ -271,7 +270,7 @@ def game():
 
         # Scoreboard function called to show player lives and current score
         scoreboard("Score: ", score, 50, 625, 600)
-        scoreboard("Lives: ", lives, 550, 625, 600)
+        scoreboard("HP: ", hp, 550, 625, 600)
         clock.tick(60)
         pygame.display.flip()
 
