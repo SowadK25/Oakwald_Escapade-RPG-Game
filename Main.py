@@ -44,10 +44,10 @@ def sentence(font, word, color, x, y):
     pygame.display.update()
 
 
-#def sound_effects(sound):
+def sound_effects(sound):
     """Plays sound effects requested"""
-   # noise = pygame.mixer.Sound(sound)
-    #noise.play(0)
+   noise = pygame.mixer.Sound(sound)
+   noise.play(0)
 
 
 def scoreboard(statement, value, x, y1, y2, color):
