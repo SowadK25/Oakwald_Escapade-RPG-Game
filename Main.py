@@ -36,11 +36,6 @@ clock = pygame.time.Clock()  # clock
 
 
 # for sentences
-def instructions():
-    instruction = pygame.transform.scale(pygame.image.load('instructions.png'), [675, 675])
-    screen.blit(instruction, (0, 0))
-    pygame.display.update()
-
 
 def sentence(font, word, color, x, y):
     """Sentence making function"""
@@ -51,15 +46,15 @@ def sentence(font, word, color, x, y):
 
 def sound_effects(sound):
     """Plays sound effects requested"""
-    noise = pygame.mixer.Sound(sound)
-    noise.play(0)
+   noise = pygame.mixer.Sound(sound)
+   noise.play(0)
 
 
 def scoreboard(statement, value, x, y1, y2, color):
     """Contains the scoreboard for the player"""
     box = small.render(statement + str(value), True, color)  # Rendering font for the scoreboard
-    screen.fill(GREY, rect=box.get_rect(bottomleft=(x, y1)))  # Filling the background of the scoreboard with brown
-    screen.blit(box, (x, y2))  # Putting the scoreboard in the top right corner of the screen
+    screen.fill(GREY, rect=box.get_rect(bottomleft=(x, y1)))  # Filling the background of the scoreboard with grey
+    screen.blit(box, (x, y2))  # Putting the scoreboard in the bottom corner of the screen
     pygame.display.update()  # Updating the screen
 
 
@@ -69,7 +64,7 @@ def win_function():
 
 
 # sizes for sentences
-small = pygame.font.SysFont("TimesNewRoman", 25)
+small = pygame.font.SysFont("TimesNewRoman", 35)
 big = pygame.font.SysFont("TimesNewRoman", 50)
 
 # Max and min speeds of player
@@ -177,6 +172,7 @@ all_sprites_list.add(player)
 
 
 def game():
+
     global score
     global hp
     for i in range(20):  # 20 enemies will spawn
@@ -218,6 +214,7 @@ def game():
             if event.type == pygame.QUIT:  # Quit pygame if event is quit
                 pygame.quit()
                 quit()
+
             if event.type == pygame.KEYDOWN:  # If player hits a key
                 # Player moves up if w is entered and bigger than minimum speed
                 if event.key == pygame.K_w and player.speed > min_s:
@@ -234,7 +231,7 @@ def game():
 
                 if event.key == pygame.K_SPACE:  # If player hits spacebar
                     shoot = Shoot(player.rect.center, player.direction)  # Bullets start where player is at
-                    sound_effects("Shooting.wav")  # Sound effects function called
+                    #sound_effects("Shooting.wav")  # Sound effects function called
 
                     # Adding shooting to both sprite lists
                     all_sprites_list.add(shoot)
@@ -289,6 +286,13 @@ def game():
             scoreboard("HP: ", hp, 550, 625, 600, YELLOW)
         if hp <= 25:
             scoreboard("HP: ", hp, 550, 625, 600, RED)
+
+        if hp == 0:
+           myfont=big  
+           textsurface= myfont.render('YOU LOSE' , False, RED)
+           screen.blit(textsurface, (75,300))
+           pygame.display.update()
+           
 
         clock.tick(60)
         pygame.display.flip()
