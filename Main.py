@@ -42,6 +42,7 @@ def instructions():
     pygame.display.update()
 
 
+
 def sentence(font, word, color, x, y):
     """Sentence making function"""
     text = font.render(word, True, color)
