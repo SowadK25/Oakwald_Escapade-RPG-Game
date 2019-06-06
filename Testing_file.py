@@ -48,10 +48,10 @@ def flag(item1, item2, curr):
 
 
 class Button(pygame.sprite.Sprite):
-    def __init__(self, message, pos, size, colors, font):
+    def __init__(self, text, pos, size, colors, font):
         super().__init__()
         self.font = font
-        self.message = message
+        self.text = text
         self.colors = colors
         self.curr_color = 0
         self.size = size
@@ -61,28 +61,23 @@ class Button(pygame.sprite.Sprite):
         self.rect.x = pos[0]
         self.rect.y = pos[1]
 
-    def message(self):
+    def text(self):
         self.image.fill(self.colors[self.curr_color])
-        xTx, yTx = self.font.size(self.message)
+        xTx, yTx = self.font.size(self.text)
         xTx = self.size[0] / 2 - xTx / 2
         yTx = self.size[1] / 2 - yTx / 2
 
-        text_image = self.font.render(self.message(), True, self.colors[self.curr_color])
+        text_image = self.font.render(self.text(), True, self.colors[self.curr_color])
         self.image.blit(text_image, (xTx, yTx))
 
     def update(self, mousePos):
         if self.rect.collidepoint(mousePos):
             self.curr_color = flag(0, 1, self.curr_color)
             return True
-        self.message()
+        self.text()
+small = pygame.font.SysFont("TimesNewRoman", 25)
 
-
-
-
-
-
-
-
+Button('sick',(0,0),(20,20),WHITE,small)
 
 
 
@@ -112,7 +107,7 @@ def scoreboard(statement, value, x, y1, y2):
 
 
 # sizes for sentences
-small = pygame.font.SysFont("TimesNewRoman", 25)
+
 big = pygame.font.SysFont("TimesNewRoman", 50)
 
 # Max and min speeds of player
