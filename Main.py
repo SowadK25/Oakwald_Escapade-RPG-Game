@@ -288,7 +288,7 @@ def game():
             scoreboard("HP: ", hp, 550, 625, 600, RED)
 
         if hp == 0:
-           myfont=pygame.font.SysFont('Comic Sans Ms', 150)  
+           myfont=big  
            textsurface= myfont.render('YOU LOSE' , False, RED)
            screen.blit(textsurface, (75,300))
            pygame.display.update()
