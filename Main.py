@@ -36,6 +36,11 @@ clock = pygame.time.Clock()  # clock
 
 
 # for sentences
+def instructions():
+    instruction = pygame.transform.scale(pygame.image.load('instructions.png'), [675, 675])
+    screen.blit(instruction, (0, 0))
+    pygame.display.update()
+
 
 def sentence(font, word, color, x, y):
     """Sentence making function"""
@@ -172,7 +177,6 @@ all_sprites_list.add(player)
 
 
 def game():
-
     global score
     global hp
     for i in range(20):  # 20 enemies will spawn
@@ -214,7 +218,6 @@ def game():
             if event.type == pygame.QUIT:  # Quit pygame if event is quit
                 pygame.quit()
                 quit()
-
             if event.type == pygame.KEYDOWN:  # If player hits a key
                 # Player moves up if w is entered and bigger than minimum speed
                 if event.key == pygame.K_w and player.speed > min_s:
