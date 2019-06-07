@@ -12,14 +12,17 @@ height = 675
 width = 675
 
 # Player score and lives variables
-score = 0
+score_1 = 0
+score_2 = 0
+score_3 = 0
 hp = 100
+wave_number = 1
 
 
 screen = pygame.display.set_mode((height, width))  # screen display size
 screen_rect = screen.get_rect()
 pygame.display.set_caption('Oakwald Escapade')  # screen caption
-
+ 
 # colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -36,8 +39,6 @@ clock = pygame.time.Clock()  # clock
 
 
 # for sentences
-
-
 def sentence(font, word, color, x, y):
     """Sentence making function"""
     text = font.render(word, True, color)
@@ -59,6 +60,27 @@ def scoreboard(statement, value, x, y1, y2, color):
     pygame.display.update()  # Updating the screen
 
 
+def enemy_spawn(number):
+    """Function to spawn enemies"""
+    for i in range(number):  # enemies will spawn
+        enemy = Enemy()
+        enemy.rect.x = random.randrange(width)  # Enemies will randomly spawn within the screen
+        enemy.rect.y = random.randrange(height)
+
+        enemy.speed_x = random.choice(enemy_speeds)  # Enemies will have a speed within these values
+        enemy.speed_y = random.choice(enemy_speeds)
+
+        # Boundaries set for the enemy on screen
+        enemy.left = 0
+        enemy.top = 0
+        enemy.right = width
+        enemy.bottom = height
+
+        # Adding enemies to both sprite lists created
+        enemy_list.add(enemy)
+        all_sprites_list.add(enemy)
+
+
 # sizes for sentences
 small = pygame.font.SysFont("TimesNewRoman", 25)
 big = pygame.font.SysFont("TimesNewRoman", 50)
@@ -68,6 +90,7 @@ max_s = 10
 min_s = -5
 
 close = True
+wave = True
 
 # for the map
 floor = 0
@@ -167,27 +190,15 @@ player = Player()
 all_sprites_list.add(player)
 
 
-def game():
+def game(score):
 
-    global score
+    global score_1, score_2, score_3
+    global wave_number
     global hp
-    for i in range(20):  # 20 enemies will spawn
-        enemy = Enemy()
-        enemy.rect.x = random.randrange(width)  # Enemies will randomly spawn within the screen
-        enemy.rect.y = random.randrange(height)
-
-        enemy.speed_x = random.choice(enemy_speeds)  # Enemies will have a speed within these values
-        enemy.speed_y = random.choice(enemy_speeds)
-
-        # Boundaries set for the enemy on screen
-        enemy.left = 0
-        enemy.top = 0
-        enemy.right = width
-        enemy.bottom = height
-
-        # Adding enemies to both sprite lists created
-        enemy_list.add(enemy)
-        all_sprites_list.add(enemy)
+    global close
+    global kills
+    global wave
+    enemy_spawn(20)
 
     while close:
         if lvl_type == 1:
@@ -205,7 +216,7 @@ def game():
         else:
             break
 
-    while close:  # While the game is running
+    while close and wave:  # While the game is running
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # Quit pygame if event is quit
                 pygame.quit()
@@ -248,11 +259,9 @@ def game():
                     player.speed = 0
 
         kills = pygame.sprite.groupcollide(enemy_list, shooting_list, True, True)  # Checking for enemy hit by shooting
-
-        for hit in kills:
+        for kill in kills:
             enemy = Enemy()
             score += 1  # Add 1 to score each time enemy is shot
-
             # Remove enemies from sprite lists
             all_sprites_list.remove(enemy)
             enemy_list.remove(enemy)
@@ -261,8 +270,28 @@ def game():
         die = pygame.sprite.spritecollide(player, enemy_list, False)  # Check if player is hit by an enemy
         if die:  # If they player is hit
             hp -= 1  # Subtract 1 from their lives
-            if hp <= 0:
-                hp = 0
+            if hp <= 0:  # If HP goes lower than 0
+                hp = 0  # Set HP equal to 0 so it doesn't go to negatives
+
+        if hp == 0:  # When player loses all HP
+            # Sentences to show that player has lost, kill player
+            sentence(big, "YOU DIED", RED, 200, 300)
+            sentence(big, "YOU REACHED WAVE: " + str(wave_number), RED, 50, 350)
+            player.kill()
+            pygame.time.delay(4000)
+            pygame.quit()
+
+        if score == 20 and wave_number <= 4:  # If player kills all 20 enemies on screen
+            wave_number += 1  # Increase wave number
+            game(score_2)  # Call game function for new wave
+
+        if wave_number == 4:  # If the player reaches wave 4
+            # Sentences to show the player has beat all waves and has won the game
+            sentence(big, "OAKWALD ESCAPADE", GREEN, 100, 300)
+            sentence(big, "SMILES UPON YOU", GREEN, 120, 350)
+            sentence(big, "(YOU WIN!)", GREEN, 200, 400)
+            pygame.time.delay(4000)  # Delay pygame for 3 seconds
+            pygame.quit()  # Quit pygame
 
         screen.fill(WHITE)
         for row in range(15):
@@ -283,17 +312,8 @@ def game():
         if hp <= 25:
             scoreboard("HP: ", hp, 550, 625, 600, RED)
 
-        '''if hp == 0:
-           myfont=big  
-           textsurface= myfont.render('YOU LOSE' , False, RED)
-           screen.blit(textsurface, (75,300))
-           pygame.display.update()'''
-           
-
         clock.tick(60)
         pygame.display.flip()
 
-    pygame.quit()
 
-
-game()
+game(score_1)
