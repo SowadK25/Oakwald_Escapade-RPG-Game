@@ -36,8 +36,11 @@ ORANGE = (242, 141, 19)
 enemy_speeds = [-2, -1, 1, 2]
 
 clock = pygame.time.Clock()  # clock
+# for instruction screen.
 
-
+def instrucions():
+    instruction_picture = pygame.transform.scale(pygame.image.load('instructions.png'), [675, 675])
+    screen.blit(instruction_picture, (0, 0))
 # for sentences
 def sentence(font, word, color, x, y):
     """Sentence making function"""
