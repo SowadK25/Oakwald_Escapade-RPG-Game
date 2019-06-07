@@ -38,14 +38,15 @@ enemy_speeds = [-2, -1, 1, 2]
 clock = pygame.time.Clock()  # clock
 # for instruction screen.
 
+
 def instructions():
     instruction_picture = pygame.transform.scale(pygame.image.load('instructions.png'), [675, 675])
     screen.blit(instruction_picture, (0, 0))
 
 
-def secondinstruction():
-    secondinstruction_picture = pygame.transform.scale(pygame.image.load('instructions.png'), [675, 675])
-    screen.blit(secondinstruction_picture, (0, 0))
+def second_instruction():
+    second_instruction_picture = pygame.transform.scale(pygame.image.load('instructions.png'), [675, 675])
+    screen.blit(second_instruction_picture, (0, 0))
 
 # for sentences
 def sentence(font, word, color, x, y):
