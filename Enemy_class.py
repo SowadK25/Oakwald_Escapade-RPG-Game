@@ -2,11 +2,11 @@
 # EAU&url=http%3A%2F%2Fpixelartmaker.com%2Fart%2F18aa1ab89b62bed&psig=AOvVaw3qtbOL5CJfSSaert4wUren&ust=1559595494982380
 
 import pygame
-
+import random
 # Screen dimensions
 height = 675
 width = 675
-
+sizes = [10,100,200,300,400,500]
 
 class Enemy(pygame.sprite.Sprite):
     """Enemy class to spawn enemies"""
@@ -17,7 +17,7 @@ class Enemy(pygame.sprite.Sprite):
 
         # Creating surface and loading image into rect for enemy
         self.image = pygame.Surface([30, 20])
-        self.image = pygame.image.load("enemy.png")
+        self.image = pygame.transform.scale(pygame.image.load("enemy.png"),[30,30])
         self.rect = self.image.get_rect()
         # Screen dimension variables to be used later
         self.left = 0
