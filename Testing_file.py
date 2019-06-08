@@ -1,6 +1,5 @@
 import pygame  # imports
 import random
-import time
 from Player_class import Player
 from Shooting_class import Shoot
 from Enemy_class import Enemy
@@ -13,9 +12,11 @@ height = 675
 width = 675
 
 # Player score and lives variables
-score = 0
-lives = 100
-
+score_1 = 0
+score_2 = 0
+score_3 = 0
+hp = 100
+wave_number = 1
 
 screen = pygame.display.set_mode((height, width))  # screen display size
 screen_rect = screen.get_rect()
@@ -28,63 +29,28 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BROWN = (139, 69, 19)
 GREY = (104, 109, 105)
+YELLOW = (252, 252, 25)
+ORANGE = (242, 141, 19)
 
-enemy_speeds = [-2, -1, 1, 2]
+enemy_speeds = [-20,-10, -5, -2, -1, 1, 2, 5, 10, 20]
 
 clock = pygame.time.Clock()  # clock
 
 
+# for instruction screen.
 
 
-
-# class for button
-
-
-def flag(item1, item2, curr):
-    if curr == item1:
-        return item2
-    else:
-        return item1
+def instructions():
+    instruction_picture = pygame.transform.scale(pygame.image.load('instructions.png'), [675, 675])
+    screen.blit(instruction_picture, (0, 0))
 
 
-class Button(pygame.sprite.Sprite):
-    def __init__(self, text, pos, size, colors, font):
-        super().__init__()
-        self.font = font
-        self.text = text
-        self.colors = colors
-        self.curr_color = 0
-        self.size = size
-        self.image = pygame.Surface(size, pygame.SRCALPHA)
-
-        self.rect = self.image.get_rect()
-        self.rect.x = pos[0]
-        self.rect.y = pos[1]
-
-    def text(self):
-        self.image.fill(self.colors[self.curr_color])
-        xTx, yTx = self.font.size(self.text)
-        xTx = self.size[0] / 2 - xTx / 2
-        yTx = self.size[1] / 2 - yTx / 2
-
-        text_image = self.font.render(self.text(), True, self.colors[self.curr_color])
-        self.image.blit(text_image, (xTx, yTx))
-
-    def update(self, mousePos):
-        if self.rect.collidepoint(mousePos):
-            self.curr_color = flag(0, 1, self.curr_color)
-            return True
-        self.text()
-small = pygame.font.SysFont("TimesNewRoman", 25)
-
-Button('sick',(0,0),(20,20),WHITE,small)
-
-
-
+def second_instruction():
+    second_instruction_picture = pygame.transform.scale(pygame.image.load('instructions.png'), [675, 675])
+    screen.blit(second_instruction_picture, (0, 0))
 
 
 # for sentences
-
 def sentence(font, word, color, x, y):
     """Sentence making function"""
     text = font.render(word, True, color)
@@ -98,16 +64,37 @@ def sound_effects(sound):
     noise.play(0)
 
 
-def scoreboard(statement, value, x, y1, y2):
+def scoreboard(statement, value, x, y1, y2, color):
     """Contains the scoreboard for the player"""
-    box = small.render(statement + str(value), True, WHITE)  # Rendering font for the scoreboard
-    screen.fill(GREY, rect=box.get_rect(bottomleft=(x, y1)))  # Filling the background of the scoreboard with brown
-    screen.blit(box, (x, y2))  # Putting the scoreboard in the top right corner of the screen
+    box = small.render(statement + str(value), True, color)  # Rendering font for the scoreboard
+    screen.fill(GREY, rect=box.get_rect(bottomleft=(x, y1)))  # Filling the background of the scoreboard with grey
+    screen.blit(box, (x, y2))  # Putting the scoreboard in the bottom corner of the screen
     pygame.display.update()  # Updating the screen
 
 
-# sizes for sentences
+def enemy_spawn(number, x, y):
+    """Function to spawn enemies"""
+    for i in range(number):  # enemies will spawn
+        enemy = Enemy()
+        enemy.rect.x = random.randrange(x[0], x[1])  # Enemies will randomly spawn within the screen
+        enemy.rect.y = random.randrange(y[0], y[1])
 
+        enemy.speed_x = random.choice(enemy_speeds)  # Enemies will have a speed within these values
+        enemy.speed_y = random.choice(enemy_speeds)
+
+        # Boundaries set for the enemy on screen
+        enemy.left = 0
+        enemy.top = 0
+        enemy.right = width
+        enemy.bottom = height
+
+        # Adding enemies to both sprite lists created
+        enemy_list.add(enemy)
+        all_sprites_list.add(enemy)
+
+
+# sizes for sentences
+small = pygame.font.SysFont("TimesNewRoman", 25)
 big = pygame.font.SysFont("TimesNewRoman", 50)
 
 # Max and min speeds of player
@@ -115,6 +102,7 @@ max_s = 10
 min_s = -5
 
 close = True
+wave = True
 
 # for the map
 floor = 0
@@ -213,29 +201,28 @@ player = Player()
 
 all_sprites_list.add(player)
 
+# for waves
 
-def game():
 
-    global score
-    global lives
-    for i in range(20):  # 20 enemies will spawn
-        enemy = Enemy()
-        enemy.rect.x = random.randrange(width)  # Enemies will randomly spawn within the screen
-        enemy.rect.y = random.randrange(height)
 
-        enemy.speed_x = random.choice(enemy_speeds)  # Enemies will have a speed within these values
-        enemy.speed_y = random.choice(enemy_speeds)
+def game(score):
+    global score_1, score_2, score_3
+    global wave_number
+    global hp
+    global close
+    global kills
+    global wave
+    if wave_number == 1:
+        enemy_spawn(20,(275,400),(1,2))
+        if wave == 2:
+            for row in range(15):
+                for column in range(15):
+                    screen.blit(image_library[map2[row][column]], (column * size_of_tile, row * size_of_tile))
+    if wave_number == 2:
+        enemy_spawn(30,(275,400),(1,2))
 
-        # Boundaries set for the enemy on screen
-        enemy.left = 0
-        enemy.top = 0
-        enemy.right = width
-        enemy.bottom = height
-
-        # Adding enemies to both sprite lists created
-        enemy_list.add(enemy)
-        all_sprites_list.add(enemy)
-
+    if wave_number == 3:
+        enemy_spawn(40,(275,400),(1,2))
     while close:
         if lvl_type == 1:
             final_level.append(clear)
@@ -252,7 +239,7 @@ def game():
         else:
             break
 
-    while close:  # While the game is running
+    while close and wave:  # While the game is running
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # Quit pygame if event is quit
                 pygame.quit()
@@ -295,11 +282,9 @@ def game():
                     player.speed = 0
 
         kills = pygame.sprite.groupcollide(enemy_list, shooting_list, True, True)  # Checking for enemy hit by shooting
-
-        for hit in kills:
+        for kill in kills:
             enemy = Enemy()
             score += 1  # Add 1 to score each time enemy is shot
-
             # Remove enemies from sprite lists
             all_sprites_list.remove(enemy)
             enemy_list.remove(enemy)
@@ -307,24 +292,57 @@ def game():
 
         die = pygame.sprite.spritecollide(player, enemy_list, False)  # Check if player is hit by an enemy
         if die:  # If they player is hit
-            lives -= 1  # Subtract 1 from their lives
-            if lives <= 0:
-                lives = 0
+            hp -= 1  # Subtract 1 from their lives
+            if hp <= 0:  # If HP goes lower than 0
+                hp = 0  # Set HP equal to 0 so it doesn't go to negatives
+
+        if hp == 0:  # When player loses all HP
+            # Sentences to show that player has lost, kill player
+            sentence(big, "YOU DIED", RED, 200, 300)
+            sentence(big, "YOU REACHED WAVE: " + str(wave_number), RED, 50, 350)
+            player.kill()
+            pygame.time.delay(4000)
+            pygame.quit()
+
+        if score == 20 and wave_number == 1:  # If player kills all 20 enemies on screen
+            wave_number += 1  # Increase wave number
+            game(score_2)  # Call game function for new wave
+        if score == 30 and wave_number == 2:
+            wave_number += 1  # Increase wave number
+            game(score_2)
+        if score == 40 and wave_number == 3:
+            wave_number += 1  # Increase wave number
+            game(score_2)
+        if wave_number == 4:  # If the player reaches wave 4
+            # Sentences to show the player has beat all waves and has won the game
+            sentence(big, "OAKWALD ESCAPADE", GREEN, 100, 300)
+            sentence(big, "SMILES UPON YOU", GREEN, 120, 350)
+            sentence(big, "(YOU WIN!)", GREEN, 200, 400)
+            pygame.time.delay(4000)  # Delay pygame for 3 seconds
+            pygame.quit()  # Quit pygame
 
         screen.fill(WHITE)
         for row in range(15):
             for column in range(15):
                 screen.blit(image_library[map1[row][column]], (column * size_of_tile, row * size_of_tile))
+
         all_sprites_list.update()  # Updating the all sprites list
         all_sprites_list.draw(screen)  # Drawing all sprites created on the screen
 
         # Scoreboard function called to show player lives and current score
-        scoreboard("Score: ", score, 50, 625, 600)
-        scoreboard("Lives: ", lives, 550, 625, 600)
+        scoreboard("Score: ", score, 50, 625, 600, WHITE)
+
+        if hp <= 100:
+            scoreboard("HP: ", hp, 550, 625, 600, GREEN)
+        if hp <= 75:
+            scoreboard("HP: ", hp, 550, 625, 600, ORANGE)
+        if hp <= 50:
+            scoreboard("HP: ", hp, 550, 625, 600, YELLOW)
+        if hp <= 25:
+            scoreboard("HP: ", hp, 550, 625, 600, RED)
+
         clock.tick(60)
         pygame.display.flip()
 
-    pygame.quit()
 
-
-game()
+game(score_1)
