@@ -3,6 +3,9 @@
 import pygame
 from pygame.math import Vector2
 
+height = 675
+width = 675
+
 
 class Player(pygame.sprite.Sprite):
     """Class that contains player movement and spawning"""
