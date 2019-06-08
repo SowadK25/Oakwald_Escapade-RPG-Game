@@ -337,7 +337,7 @@ def game(score):
 instructions_button = Button("Instructions", (168, 125), instructions, DARK_GREEN, BLACK)
 game_button = Button("Play", (506, 125), game, DARK_GREEN, BLACK)
 
-buttons = [instructions_button, game_button]  # Button list
+button_list = [instructions_button, game_button]  # Button list
 home_screen = True
 
 while home_screen:
@@ -352,7 +352,7 @@ while home_screen:
             if game_button.rect.collidepoint(position):
                 game_button.call(score_1)  # Calls game function
 
-    for button in buttons:
+    for button in button_list:
         button.draw()  # Draws buttons on screen from the button list
     pygame.display.flip()
 
