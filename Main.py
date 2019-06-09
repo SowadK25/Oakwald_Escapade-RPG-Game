@@ -1,11 +1,21 @@
-import pygame  # imports
+# Game backgound music link: https://www.bensound.com
+# Shooting sound effect link: https://youtu.be/FuvmTL1nPDs
+
+# imports
+import pygame
 import random
+import os
 from Player_class import Player
 from Shooting_class import Shoot
 from Enemy_class import Enemy
 from Floor_class import Floor
 from Button_class import Button
 
+# Computer screen size cords, will vary for different computers/PC's
+cord1 = 675
+cord2 = 50
+
+os.environ["SDL_VIDEO_WINDOW_POS"] = "%d, %d" % (cord1, cord2)  # Trying to center pygame window on screen
 pygame.init()
 
 # Dimensions of the screen
@@ -24,11 +34,11 @@ screen = pygame.display.set_mode((height, width))  # screen display size
 screen_rect = screen.get_rect()
 pygame.display.set_caption('Oakwald Escapade')  # screen caption
 
-main_page = pygame.transform.scale(pygame.image.load("oakwald.png"), [675, 675])  # Main page for game
+main_page = pygame.transform.scale(pygame.image.load("homepage.png"), [675, 675])  # Main page for game
 screen.blit(main_page, (0, 0))
 
 # Background music for game (non copyright, link above)
-pygame.mixer.music.load("Mistake the Getaway.mp3")
+pygame.mixer.music.load("Battle_music.mp3")
 pygame.mixer.music.play(-1)
 
 # colors
@@ -42,13 +52,14 @@ GREY = (104, 109, 105)
 YELLOW = (252, 252, 25)
 ORANGE = (242, 141, 19)
 
-enemy_speeds = [-2, -1, 1, 2]  # Enemy speeds
+enemy_speeds = [-5, -2, -1, 1, 2, 5]  # Enemy speeds
 
 clock = pygame.time.Clock()  # clock
 # for instruction screen.
 
 
 def instructions():
+    """Loads instructions page"""
     instruction_picture = pygame.transform.scale(pygame.image.load('instructions.png'), [675, 675])
     screen.blit(instruction_picture, (0, 0))
 
@@ -75,12 +86,12 @@ def scoreboard(statement, value, x, y1, y2, color):
     pygame.display.update()  # Updating the screen
 
 
-def enemy_spawn(number):
+def enemy_spawn(number, x, y):
     """Function to spawn enemies"""
     for i in range(number):  # enemies will spawn
         enemy = Enemy()
-        enemy.rect.x = random.randrange(width)  # Enemies will randomly spawn within the screen
-        enemy.rect.y = random.randrange(height)
+        enemy.rect.x = random.randrange(x[0], x[1])  # Enemies will randomly spawn within the screen
+        enemy.rect.y = random.randrange(y[0], y[1])
 
         enemy.speed_x = random.choice(enemy_speeds)  # Enemies will have a speed within these values
         enemy.speed_y = random.choice(enemy_speeds)
@@ -113,6 +124,7 @@ image_library = {
     floor: pygame.transform.scale(pygame.image.load('floor.png'), [45, 45])
 }
 
+# 4 diffent maps, can all be used based on player's choice
 map1 = [
 
     [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree],
@@ -215,7 +227,13 @@ def game(score):
     global close
     global kills
     global wave
-    enemy_spawn(20)  # Spawn 20 enemies
+
+    if wave_number == 1:
+        enemy_spawn(20, (275, 400), (0, 2))
+    if wave_number == 2:
+        enemy_spawn(25, (275, 400), (0, 2))
+    if wave_number == 3:
+        enemy_spawn(30, (275, 400), (0, 2))
 
     while close:
         if lvl_type == 1:
@@ -295,19 +313,25 @@ def game(score):
             sentence(big, "YOU DIED", RED, 200, 300)
             sentence(big, "YOU REACHED WAVE: " + str(wave_number), RED, 50, 350)
             player.kill()
-            pygame.time.delay(4000)
+            pygame.time.delay(5000)
             pygame.quit()
 
-        if score == 20 and wave_number <= 4:  # If player kills all 20 enemies on screen
+        if score == 20 and wave_number == 1:  # If player kills all 20 enemies on screen
             wave_number += 1  # Increase wave number
-            game(score_2)  # Call game function for new wave, recursive
+            game(score_2)  # Call game function for new wave
+        if score == 25 and wave_number == 2:
+            wave_number += 1  # Increase wave number
+            game(score_2)
+        if score == 30 and wave_number == 3:
+            wave_number += 1  # Increase wave number
+            game(score_2)
 
         if wave_number == 4:  # If the player reaches wave 4
             # Sentences to show the player has beat all waves and has won the game
             sentence(big, "OAKWALD ESCAPADE", DARK_GREEN, 100, 300)
             sentence(big, "SMILES UPON YOU", DARK_GREEN, 120, 350)
             sentence(big, "(YOU WIN!)", DARK_GREEN, 200, 400)
-            pygame.time.delay(4000)  # Delay pygame for 3 seconds
+            pygame.time.delay(5000)  # Delay pygame for 3 seconds
             pygame.quit()  # Quit pygame
 
         screen.fill(WHITE)
@@ -320,6 +344,7 @@ def game(score):
         # Scoreboard function called to show player lives and current score
         scoreboard("Score: ", score, 50, 625, 600, WHITE)
 
+        # Color changes depending on players HP level
         if hp <= 100:
             scoreboard("HP: ", hp, 550, 625, 600, DARK_GREEN)
         if hp <= 75:
@@ -329,13 +354,13 @@ def game(score):
         if hp <= 25:
             scoreboard("HP: ", hp, 550, 625, 600, RED)
 
-        clock.tick(60)
+        clock.tick(60)  # 60 fps
         pygame.display.flip()
 
 
 # Create two buttons by calling Button class
-instructions_button = Button("Instructions", (168, 125), instructions, DARK_GREEN, BLACK)
-game_button = Button("Play", (506, 125), game, DARK_GREEN, BLACK)
+instructions_button = Button("Instructions", (168, 125), instructions, DARK_GREEN, WHITE)
+game_button = Button("Play", (506, 125), game, DARK_GREEN, WHITE)
 
 button_list = [instructions_button, game_button]  # Button list
 home_screen = True
@@ -348,11 +373,11 @@ while home_screen:
         if event.type == pygame.MOUSEBUTTONDOWN:  # If player preses the mouse
             position = pygame.mouse.get_pos()  # Gets the mouse position on screen
             if instructions_button.rect.collidepoint(position):  # Checks if it is within the button dimensions
+                button_list.remove(instructions_button)  # Removes the instructions button from the list
                 instructions_button.call()  # Calls instructions function
             if game_button.rect.collidepoint(position):
                 game_button.call(score_1)  # Calls game function
 
     for button in button_list:
         button.draw()  # Draws buttons on screen from the button list
-    pygame.display.flip()
-
+    pygame.display.update()

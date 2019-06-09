@@ -5,6 +5,8 @@ from pygame.math import Vector2
 
 height = 675
 width = 675
+screen = pygame.display.set_mode((height, width))  # screen display size
+screen_rect = screen.get_rect()
 
 
 class Player(pygame.sprite.Sprite):
@@ -37,3 +39,4 @@ class Player(pygame.sprite.Sprite):
         # Updating player's position vector and rectangle surface
         self.position += self.direction * self.speed
         self.rect.center = self.position
+        self.rect.clamp_ip(screen_rect)  # Keeps player within screen dimensions

@@ -32,7 +32,7 @@ GREY = (104, 109, 105)
 YELLOW = (252, 252, 25)
 ORANGE = (242, 141, 19)
 
-enemy_speeds = [-20,-10, -5, -2, -1, 1, 2, 5, 10, 20]
+enemy_speeds = [-8, -5, -2, -1, 1, 2, 5, 8]
 
 clock = pygame.time.Clock()  # clock
 
@@ -219,10 +219,10 @@ def game(score):
                 for column in range(15):
                     screen.blit(image_library[map2[row][column]], (column * size_of_tile, row * size_of_tile))
     if wave_number == 2:
-        enemy_spawn(30,(275,400),(1,2))
+        enemy_spawn(25,(275,400),(1,2))
 
     if wave_number == 3:
-        enemy_spawn(40,(275,400),(1,2))
+        enemy_spawn(30,(275,400),(1,2))
     while close:
         if lvl_type == 1:
             final_level.append(clear)

@@ -34,12 +34,12 @@ class Button:
 
     def draw(self):
         """Draw mouse"""
-        self.mouse_hit()  # Call mouse_hit function
+        self.mouse_hover()  # Call mouse_hit function
         self.surface.fill(self.color1)  # Fill button with color
         self.surface.blit(self.textbox, self.textrect)  # Display button on screen
         screen.blit(self.surface, self.rect)
 
-    def mouse_hit(self):
+    def mouse_hover(self):
         """Checks if mouse is over button"""
         self.color1 = self.color  # Color changes
         position = pygame.mouse.get_pos()  # Get mouse position
@@ -48,4 +48,4 @@ class Button:
 
     def call(self):
         """Function to call any function later"""
-        self.call()  # Cal function
+        self.call()  # Call a function
