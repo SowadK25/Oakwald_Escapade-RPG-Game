@@ -20,7 +20,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load("Images/shooter_player.png")
         self.org_image = self.image
         self.rect = self.image.get_rect()
-        self.pos = (200, 200)  # Start position of player
+        self.pos = (338, 650)  # Start position of player
         self.position = Vector2(self.pos)  # Position set as a vector quantity
         self.direction = Vector2(0, -1)  # Vector points upwards
 
