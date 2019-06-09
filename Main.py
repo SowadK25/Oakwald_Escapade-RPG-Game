@@ -34,11 +34,11 @@ screen = pygame.display.set_mode((height, width))  # screen display size
 screen_rect = screen.get_rect()
 pygame.display.set_caption('Oakwald Escapade')  # screen caption
 
-main_page = pygame.transform.scale(pygame.image.load("homepage.png"), [675, 675])  # Main page for game
+main_page = pygame.transform.scale(pygame.image.load("Images/homepage.png"), [675, 675])  # Main page for game
 screen.blit(main_page, (0, 0))
 
 # Background music for game (non copyright, link above)
-pygame.mixer.music.load("Battle_music.mp3")
+pygame.mixer.music.load("Music/Battle_music.mp3")
 pygame.mixer.music.play(-1)
 
 # colors
@@ -60,7 +60,7 @@ clock = pygame.time.Clock()  # clock
 
 def instructions():
     """Loads instructions page"""
-    instruction_picture = pygame.transform.scale(pygame.image.load('instructions.png'), [675, 675])
+    instruction_picture = pygame.transform.scale(pygame.image.load('Images/instructions.png'), [675, 675])
     screen.blit(instruction_picture, (0, 0))
 
 
@@ -120,8 +120,8 @@ floor = 0
 tree = 1
 
 image_library = {
-    tree: pygame.transform.scale(pygame.image.load('tree.png'), [45, 45]),
-    floor: pygame.transform.scale(pygame.image.load('floor.png'), [45, 45])
+    tree: pygame.transform.scale(pygame.image.load('Images/tree.png'), [45, 45]),
+    floor: pygame.transform.scale(pygame.image.load('Images/floor.png'), [45, 45])
 }
 
 # 4 diffent maps, can all be used based on player's choice
@@ -273,7 +273,7 @@ def game(score):
 
                 if event.key == pygame.K_SPACE:  # If player hits spacebar
                     shoot = Shoot(player.rect.center, player.direction)  # Bullets start where player is at
-                    sound_effects("Shooting.wav")  # Sound effects function called
+                    sound_effects("Music/Shooting.wav")  # Sound effects function called
 
                     # Adding shooting to both sprite lists
                     all_sprites_list.add(shoot)
