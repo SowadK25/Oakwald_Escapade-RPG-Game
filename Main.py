@@ -10,6 +10,7 @@ from Shooting_class import Shoot
 from Enemy_class import Enemy
 from Floor_class import Floor
 from Button_class import Button
+from Clock_class import Clock
 
 # Computer screen size cords, will vary for different computers/PC's
 cord1 = 675
@@ -371,6 +372,8 @@ map_one = Button("Map 1", (600, 100), game, DARK_GREEN, WHITE)
 map_two = Button("Map 2", (600, 200), game, DARK_GREEN, WHITE)
 map_three = Button("Map 3", (600, 300), game, DARK_GREEN, WHITE)
 map_four = Button("Map 4", (600, 400), game, DARK_GREEN, WHITE)
+
+timer = Clock("Hello", RED, 0, 0)
 
 
 button_list = [instructions_button, game_button]  # Button list
