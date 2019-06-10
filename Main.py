@@ -22,10 +22,9 @@ pygame.init()
 height = 675
 width = 675
 
-# Player score and lives variables
+# Player score, wave number, and player HP variables
 score_1 = 0
 score_2 = 0
-score_3 = 0
 hp = 100
 wave_number = 1
 
@@ -63,6 +62,11 @@ def instructions():
     instruction_picture = pygame.transform.scale(pygame.image.load('Images/instructions.png'), [675, 675])
     screen.blit(instruction_picture, (0, 0))
 
+
+def map_screen():
+    """Buttons for map will be loaded here"""
+    maps = pygame.transform.scale(pygame.image.load("Images/homepage.png"), [675, 675])
+    screen.blit(maps, (0, 0))
 
 # for sentences
 def sentence(font, word, color, x, y):
@@ -217,11 +221,11 @@ close = True
 wave = True
 
 
-def game(score):
+def game(score, layout):
     """Main program for game"""
 
     # Variables declared global
-    global score_1, score_2, score_3
+    global score_1, score_2
     global wave_number
     global hp
     global close
@@ -337,7 +341,7 @@ def game(score):
         screen.fill(WHITE)
         for row in range(15):
             for column in range(15):
-                screen.blit(image_library[map1[row][column]], (column * size_of_tile, row * size_of_tile))
+                screen.blit(image_library[layout[row][column]], (column * size_of_tile, row * size_of_tile))
         all_sprites_list.update()  # Updating the all sprites list
         all_sprites_list.draw(screen)  # Drawing all sprites created on the screen
 
@@ -360,9 +364,16 @@ def game(score):
 
 # Create two buttons by calling Button class
 instructions_button = Button("Instructions", (168, 125), instructions, DARK_GREEN, WHITE)
-game_button = Button("Play", (506, 125), game, DARK_GREEN, WHITE)
+game_button = Button("Play", (506, 125), map_screen, DARK_GREEN, WHITE)
+
+map_one = Button("Map 1", (600, 100), game, DARK_GREEN, WHITE)
+map_two = Button("Map 2", (600, 200), game, DARK_GREEN, WHITE)
+map_three = Button("Map 3", (600, 300), game, DARK_GREEN, WHITE)
+map_four = Button("Map 4", (600, 400), game, DARK_GREEN, WHITE)
+
 
 button_list = [instructions_button, game_button]  # Button list
+map_list = [map_one, map_two, map_three, map_four]
 home_screen = True
 
 while home_screen:
@@ -376,7 +387,18 @@ while home_screen:
                 button_list.remove(instructions_button)  # Removes the instructions button from the list
                 instructions_button.call()  # Calls instructions function
             if game_button.rect.collidepoint(position):
-                game_button.call(score_1)  # Calls game function
+                game_button.call()  # Calls game function
+                for thing in map_list:
+                    thing.draw()
+
+            if map_one.rect.collidepoint(position):
+                map_one.call(score_1, map1)
+            if map_two.rect.collidepoint(position):
+                map_two.call(score_1, map2)
+            if map_three.rect.collidepoint(position):
+                map_three.call(score_1, map3)
+            if map_four.rect.collidepoint(position):
+                map_four.call(score_1, map4)
 
     for button in button_list:
         button.draw()  # Draws buttons on screen from the button list
