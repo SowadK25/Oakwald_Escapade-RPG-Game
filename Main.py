@@ -1,5 +1,23 @@
+# Group Members: Sowad Khan, Constantinos Boyatiz, Ciara Manle, Liban Nur, Maryam Rasheed
+# ICS 3UI Final Summative Project
+# Create a RPG Game: Oakwald Escapade
+# All commits and modifications can be seen on Github
+# Game finished on Monday, June 10th, 2019
+
+# Notes:
+
 # Game backgound music link: https://www.bensound.com
 # Shooting sound effect link: https://youtu.be/FuvmTL1nPDs
+# Home page background image link (just the background, not text or special affects): https://www.google.com/url?sa=i&
+# source=images&cd=&ved=2ahUKEwjToPTPuN_iAhUIVN8KHa8ADwQQjRx6BAgBEAU&url=https%3A%2F%2Fwww.videoblocks.com%2Fvideo%2F
+# magical-forest-background-loop-h0c0xdonfjg93mzlu&psig=AOvVaw1pFxs4M5CRTDucJsfOMWKH&ust=1560274237764799
+# Enemy image link: https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwiYgYLBud_iAhUlWN8KHauxAmgQjRx6BAgBEAU&
+# url=https%3A%2F%2Fwww.deviantart.com%2Fslhqueenbee%2Fart%2FPixel-Art-Cute-Ghost-608650227&psig=AOvVaw3dn22VtlGGzXDAkT2
+# xnFBw&ust=1560274470728403
+# Player image link: https://www.google.com/imgres?imgurl=https%3A%2F%2Fopengameart.org%2Fsites%2Fdefault%2Ffiles%2F
+# preview_idle.gif&imgrefurl=https%3A%2F%2Fopengameart.org%2Fcontent%2Fanimated-top-down-survivor-player&docid=GL07EFfbH
+# j1rSM&tbnid=T5QI3yCr6dWPNM%3A&vet=10ahUKEwja38nUud_iAhUJPK0KHa9jBkIQMwhWKAEwAQ..i&w=253&h=216&safe=strict&bih=754&biw
+# =1536&q=top%20view%20player%20&ved=0ahUKEwja38nUud_iAhUJPK0KHa9jBkIQMwhWKAEwAQ&iact=mrc&uact=8
 
 # imports
 import pygame
@@ -324,13 +342,13 @@ def game(score, layout):
 
         if score == 20 and wave_number == 1:  # If player kills all 20 enemies on screen
             wave_number += 1  # Increase wave number
-            game(score_2)  # Call game function for new wave
+            game(score_2, layout)  # Call game function for new wave
         if score == 25 and wave_number == 2:
             wave_number += 1  # Increase wave number
-            game(score_2)
+            game(score_2, layout)
         if score == 30 and wave_number == 3:
             wave_number += 1  # Increase wave number
-            game(score_2)
+            game(score_2, layout)
 
         if wave_number == 4:  # If the player reaches wave 4
             # Sentences to show the player has beat all waves and has won the game
@@ -365,19 +383,17 @@ def game(score, layout):
 
 
 # Create two buttons by calling Button class
-instructions_button = Button("Instructions", (168, 125), instructions, DARK_GREEN, WHITE)
-game_button = Button("Play", (506, 125), map_screen, DARK_GREEN, WHITE)
+instructions_button = Button("Instructions", (338, 200), instructions, DARK_GREEN, WHITE)
 
-map_one = Button("Map 1", (600, 100), game, DARK_GREEN, WHITE)
-map_two = Button("Map 2", (600, 200), game, DARK_GREEN, WHITE)
-map_three = Button("Map 3", (600, 300), game, DARK_GREEN, WHITE)
-map_four = Button("Map 4", (600, 400), game, DARK_GREEN, WHITE)
+# Map buttons
+map_one = Button("Map 3", (600, 350), game, DARK_GREEN, WHITE)
+map_two = Button("Map 4", (600, 500), game, DARK_GREEN, WHITE)
+map_three = Button("Map 1", (75, 350), game, DARK_GREEN, WHITE)
+map_four = Button("Map 2", (75, 500), game, DARK_GREEN, WHITE)
 
 timer = Clock("Hello", RED, 0, 0)
 
-
-button_list = [instructions_button, game_button]  # Button list
-map_list = [map_one, map_two, map_three, map_four]
+button_list = [instructions_button, map_one, map_two, map_three, map_four]  # Button list
 home_screen = True
 
 while home_screen:
@@ -390,11 +406,8 @@ while home_screen:
             if instructions_button.rect.collidepoint(position):  # Checks if it is within the button dimensions
                 button_list.remove(instructions_button)  # Removes the instructions button from the list
                 instructions_button.call()  # Calls instructions function
-            if game_button.rect.collidepoint(position):
-                game_button.call()  # Calls game function
-                for thing in map_list:
-                    thing.draw()
 
+            # Map buttons, check for press with mouse, will load the corresponding map for the game
             if map_one.rect.collidepoint(position):
                 map_one.call(score_1, map1)
             if map_two.rect.collidepoint(position):
