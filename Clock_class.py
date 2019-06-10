@@ -34,3 +34,4 @@ class Clock:
     def draw(self):
         self.time = pygame.time.get_ticks()
         screen.blit(small.render(self.message, True, WHITE), (self.x, self.y))
+
