@@ -68,6 +68,7 @@ def map_screen():
     maps = pygame.transform.scale(pygame.image.load("Images/homepage.png"), [675, 675])
     screen.blit(maps, (0, 0))
 
+
 # for sentences
 def sentence(font, word, color, x, y):
     """Sentence making function"""
