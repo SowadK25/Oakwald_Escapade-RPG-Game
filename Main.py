@@ -49,7 +49,7 @@ hp = 100
 wave_number = 1
 
 
-screen = pygame.display.set_mode((height, width))  # screen display size
+screen = pygame.display.set_mode((height, width), pygame.FULLSCREEN)  # screen display size
 screen_rect = screen.get_rect()
 pygame.display.set_caption('Oakwald Escapade')  # screen caption
 
@@ -291,10 +291,13 @@ def game(score, layout):
                     player.speed -= 5
                 # Player moves left if a is hit
                 if event.key == pygame.K_a:
-                    player.angle_speed -= 3
+                    player.angle_speed -= 5
                 # Player moves right if d is hit
                 if event.key == pygame.K_d:
-                    player.angle_speed += 3
+                    player.angle_speed += 5
+
+                if event.key == pygame.K_LSHIFT or event.key == pygame.K_RSHIFT:  # Player can boost by holding shift
+                    player.speed = 12  # Increase player speed to 12
 
                 if event.key == pygame.K_SPACE:  # If player hits spacebar
                     shoot = Shoot(player.rect.center, player.direction)  # Bullets start where player is at
@@ -316,6 +319,8 @@ def game(score, layout):
                 if event.key == pygame.K_w:
                     player.speed = 0
                 if event.key == pygame.K_s:
+                    player.speed = 0
+                if event.key == pygame.K_LSHIFT or event.key == pygame.K_RSHIFT:
                     player.speed = 0
 
         kills = pygame.sprite.groupcollide(enemy_list, shooting_list, True, True)  # Checking for enemy hit by shooting
@@ -368,6 +373,7 @@ def game(score, layout):
 
         # Scoreboard function called to show player lives and current score
         scoreboard("Score: ", score, 50, 625, 600, WHITE)
+        scoreboard("Wave: ", wave_number, 50, 75, 50, WHITE)
 
         # Color changes depending on players HP level
         if hp <= 100:
@@ -387,10 +393,10 @@ def game(score, layout):
 instructions_button = Button("Instructions", (338, 200), instructions, DARK_GREEN, WHITE)
 
 # Map buttons
-map_one = Button("Map 3", (600, 350), game, DARK_GREEN, WHITE)
-map_two = Button("Map 4", (600, 500), game, DARK_GREEN, WHITE)
-map_three = Button("Map 1", (75, 350), game, DARK_GREEN, WHITE)
-map_four = Button("Map 2", (75, 500), game, DARK_GREEN, WHITE)
+map_one = Button("Play Map 1", (75, 350), game, DARK_GREEN, WHITE)
+map_two = Button("Play Map 2", (75, 500), game, DARK_GREEN, WHITE)
+map_three = Button("Play Map 3", (600, 350), game, DARK_GREEN, WHITE)
+map_four = Button("Play Map 4", (600, 500), game, DARK_GREEN, WHITE)
 
 timer = Clock("Hello", RED, 0, 0)
 
