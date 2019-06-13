@@ -11,9 +11,8 @@
 # Home page background image link (just the background, not text or special affects): https://www.google.com/url?sa=i&
 # source=images&cd=&ved=2ahUKEwjToPTPuN_iAhUIVN8KHa8ADwQQjRx6BAgBEAU&url=https%3A%2F%2Fwww.videoblocks.com%2Fvideo%2F
 # magical-forest-background-loop-h0c0xdonfjg93mzlu&psig=AOvVaw1pFxs4M5CRTDucJsfOMWKH&ust=1560274237764799
-# Enemy image link: https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwiYgYLBud_iAhUlWN8KHauxAmgQjRx6BAgBEAU&
-# url=https%3A%2F%2Fwww.deviantart.com%2Fslhqueenbee%2Fart%2FPixel-Art-Cute-Ghost-608650227&psig=AOvVaw3dn22VtlGGzXDAkT2
-# xnFBw&ust=1560274470728403
+# Enemy image link: https://www.google.com/search?q=pixelated+ghost&safe=strict&rlz=1C1CHBD_enCA775CA776&source=lnms&tbm=
+# isch&sa=X&ved=0ahUKEwjkyLHvgOfiAhWIY98KHXqyDiUQ_AUIECgB&biw=1280&bih=864#imgdii=PpQXn2BsacYhoM:&imgrc=46WxeTcp2UG9tM:
 # Player image link: https://www.google.com/imgres?imgurl=https%3A%2F%2Fopengameart.org%2Fsites%2Fdefault%2Ffiles%2F
 # preview_idle.gif&imgrefurl=https%3A%2F%2Fopengameart.org%2Fcontent%2Fanimated-top-down-survivor-player&docid=GL07EFfbH
 # j1rSM&tbnid=T5QI3yCr6dWPNM%3A&vet=10ahUKEwja38nUud_iAhUJPK0KHa9jBkIQMwhWKAEwAQ..i&w=253&h=216&safe=strict&bih=754&biw
