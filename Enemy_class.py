@@ -17,7 +17,7 @@ class Enemy(pygame.sprite.Sprite):
 
         # Creating surface and loading image into rect for enemy
         self.image = pygame.Surface([30, 20])
-        self.image = pygame.transform.scale(pygame.image.load("Images/ghost.png"), [30, 30])
+        self.image = pygame.transform.scale(pygame.image.load("Images/ghost 1.png"), [30, 30])
         self.rect = self.image.get_rect()
         # Screen dimension variables to be used later
         self.left = 0
