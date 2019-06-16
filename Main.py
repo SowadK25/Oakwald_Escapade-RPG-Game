@@ -26,7 +26,6 @@ import os
 from Player_class import Player
 from Shooting_class import Shoot
 from Enemy_class import Enemy
-from Floor_class import Floor
 from Button_class import Button
 from Clock_class import Clock
 
@@ -48,7 +47,7 @@ hp = 100
 wave_number = 1
 
 
-screen = pygame.display.set_mode((height, width), pygame.FULLSCREEN)  # screen display size
+screen = pygame.display.set_mode((height, width))  # screen display size
 screen_rect = screen.get_rect()
 pygame.display.set_caption('Oakwald Escapade')  # screen caption
 
@@ -70,7 +69,7 @@ GREY = (104, 109, 105)
 YELLOW = (252, 252, 25)
 ORANGE = (242, 141, 19)
 
-enemy_speeds = [-5, -2, -1, 1, 2, 5]  # Enemy speeds
+enemy_speeds = [-7, -5, -2, -1, 1, 2, 5, 7]  # Enemy speeds
 
 clock = pygame.time.Clock()  # clock
 # for instruction screen.
@@ -148,7 +147,7 @@ image_library = {
     floor: pygame.transform.scale(pygame.image.load('Images/floor.png'), [45, 45])
 }
 
-# 4 diffent maps, can all be used based on player's choice
+# 4 different maps, can all be used based on player's choice
 map1 = [
 
     [tree, tree, tree, tree, tree, floor, floor, floor, floor, floor, tree, tree, tree, tree, tree],
@@ -245,6 +244,7 @@ def game(score, layout):
     """Main program for game"""
 
     # Variables declared global
+    global event
     global score_1, score_2
     global wave_number
     global hp
@@ -323,7 +323,7 @@ def game(score, layout):
                     player.speed = 0
 
         kills = pygame.sprite.groupcollide(enemy_list, shooting_list, True, True)  # Checking for enemy hit by shooting
-        for kill in kills:
+        for kills in kills:
             enemy = Enemy()
             score += 1  # Add 1 to score each time enemy is shot
             # Remove enemies from sprite lists
@@ -344,6 +344,7 @@ def game(score, layout):
             player.kill()
             pygame.time.delay(5000)
             pygame.quit()
+            quit()
 
         if score == 20 and wave_number == 1:  # If player kills all 20 enemies on screen
             wave_number += 1  # Increase wave number
@@ -357,11 +358,12 @@ def game(score, layout):
 
         if wave_number == 4:  # If the player reaches wave 4
             # Sentences to show the player has beat all waves and has won the game
-            sentence(big, "OAKWALD ESCAPADE", DARK_GREEN, 100, 300)
-            sentence(big, "SMILES UPON YOU", DARK_GREEN, 120, 350)
-            sentence(big, "(YOU WIN!)", DARK_GREEN, 200, 400)
+            sentence(big, "OAKWALD ESCAPADE", DARK_GREEN, 100, 250)
+            sentence(big, "SMILES UPON YOU", DARK_GREEN, 120, 300)
+            sentence(big, "(YOU WIN!)", DARK_GREEN, 200, 350)
             pygame.time.delay(5000)  # Delay pygame for 3 seconds
             pygame.quit()  # Quit pygame
+            quit()
 
         screen.fill(WHITE)
         for row in range(15):
@@ -397,7 +399,7 @@ map_two = Button("Play Map 2", (75, 500), game, DARK_GREEN, WHITE)
 map_three = Button("Play Map 3", (600, 350), game, DARK_GREEN, WHITE)
 map_four = Button("Play Map 4", (600, 500), game, DARK_GREEN, WHITE)
 
-timer = Clock("Hello", RED, 0, 0)
+timer = Clock("Time: ", RED, 0, 0)
 
 button_list = [instructions_button, map_one, map_two, map_three, map_four]  # Button list
 home_screen = True
