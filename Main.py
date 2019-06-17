@@ -310,6 +310,7 @@ def game(score, layout):
                 if event.key == pygame.K_ESCAPE:  # Press escape to quit
                     pygame.quit()
                     quit()
+
                 # Angle is reset back to 0 if let go for left and right movement
                 if event.key == pygame.K_a:
                     player.angle_speed = 0
