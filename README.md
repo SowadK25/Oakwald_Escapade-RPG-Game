@@ -1,0 +1,2 @@
+# Oakwald_Escapade-RPG-Game
+Oakwald Escapade is a basic RPG shooter game where there is a ghost hunter in a field and has to kill all the ghosts attacking him. There are 4 levels and each level gets harder. This was for a school summative project where we presented the final game at Google in Waterloo. In the team consisting of 5 members, I was the lead developer, creating all the game logic and player functions, and a little bit of GUI
